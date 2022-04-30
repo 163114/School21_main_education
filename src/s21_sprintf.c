@@ -21,6 +21,7 @@ Task - Implement the sprintf function from the stdio.h library
 // Include the the char array of specifiers
 #include "s21_specifiers.h"
 
+/*
 #define function1(type,argp) \
 { \
 if (type == 'd') \
@@ -28,6 +29,7 @@ if (type == 'd') \
 if (type == 'c') \
     return va_arg(argp, char); \
 }
+*/
 
 int s21_sprintf(char *str, const char *format, ...);
 int choose_return_type(const char *format, int *specifier_index);
@@ -49,7 +51,7 @@ int main() {
         printf("Memory could not be allocated");
     } else {
         char exclamation_point = '!';
-        sprintf(pointer_str_array, "Hello world%c!%c", exclamation_point, exclamation_point);
+        s21_sprintf(pointer_str_array, "Hello world%c!%c", exclamation_point, exclamation_point);
         puts(pointer_str_array);
     }
     free(pointer_str_array);
@@ -62,30 +64,29 @@ int choose_return_type(const char *format, int *specifier_index) {
     for (int i = 0; i < amount_of_specifiers; ++i) {
         if (specifiers[i] == *format) {
             is_true = TRUE;
+            printf("i = %d", i);
             *specifier_index = i;
         }
     }
-    printf("specifier index = %ls\n", specifier_index);
+    printf("specifier index in return choose = %d\n", *specifier_index);
     return is_true;
 }
 
 int s21_sprintf(char *str, const char *format, ...) {
-    printf("Here");
-    // va_list is effictively a pointer to an arguments in the varargs array
+     // va_list is effictively a pointer to an arguments in the varargs array
     va_list argp;
     // After calling va_start argp ooints at the first vararg argument
     va_start(argp, format);
     int realloc_counter = 2, specifier_counter = 0, index = 0, specifier_index = -1;
         while (*format != '\0') {
             if (*format == '%') {
-                printf("percent\n");
                 ++specifier_counter;
                 ++format;
                 // Replace that if with a function to keep specifier easy, short and simple
                 // Add pointer to index of char specifier and call that index using an enum
                 // where each one is specific type of data
                     if (choose_return_type(format, &specifier_index)) {
-                    char char_to_print = function1(*format, argp);
+                    char char_to_print = va_arg(argp, int);
                     printf("%d\n", specifier_index);
                     str[index] = char_to_print;
                     ++index;
