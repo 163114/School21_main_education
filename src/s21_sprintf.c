@@ -18,8 +18,16 @@ Task - Implement the sprintf function from the stdio.h library
 #include <stdlib.h>
 // The function is used in vararg arguments in the s21_printf function
 #include <stdarg.h>
+// Include the the char array of specifiers
+#include "s21_specifiers.h"
 
 int s21_sprintf(char *str, const char *format, ...);
+int choose_return_type(const char *format);
+
+enum is_true{
+    FALSE,
+    TRUE
+};
 
 int main() {
     char *pointer_str_array;
@@ -28,12 +36,22 @@ int main() {
         printf("Memory could not be allocated");
     } else {
         char exclamation_point = '!';
-        sprintf(pointer_str_array, "Hello world%c", exclamation_point);
+        sprintf(pointer_str_array, "Hello world%c!%c", exclamation_point, exclamation_point);
         puts(pointer_str_array);
     }
     free(pointer_str_array);
     pointer_str_array = NULL;
     return 0;
+}
+
+int choose_return_type(const char *format) {
+    int amount_of_specifiers = 15, is_true = FALSE;
+    for (int i = 0; i < amount_of_specifiers; ++i) {
+        if (specifiers[i] == *format) {
+            is_true = TRUE;
+        }
+    }
+    return is_true;
 }
 
 int s21_sprintf(char *str, const char *format, ...) {
@@ -45,12 +63,14 @@ int s21_sprintf(char *str, const char *format, ...) {
         while (*format != '\0') {
             if (*format == '%') {
                 ++specifier_counter;
-                continue;
-            } else if (*format == 'c') {
-                char char_to_print = va_arg(argp, int);
-                str[index] = char_to_print;;
-                ++index;
-                continue;
+                ++format;
+                // Replace that if with a function to keep specifier easy, short and simple
+                    if (choose_return_type(format)) {
+                    char char_to_print = va_arg(argp, int);
+                    str[index] = char_to_print;
+                    ++index;
+                    continue;
+                    }
             } else {
                 str[index] = *format;
                 str = (char*)realloc(str, (realloc_counter)*sizeof(char));
