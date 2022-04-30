@@ -16,13 +16,10 @@ Task - Implement the sprintf function from the stdio.h library
 
 #include <stdio.h>
 #include <stdlib.h>
+// The function is used in vararg arguments in the s21_printf function
+#include <stdarg.h>
 
 int s21_sprintf(char *str, const char *format, ...);
-
-enum is_true {
-    FALSE,
-    TRUE
-};
 
 int main() {
     char *pointer_str_array;
@@ -30,7 +27,8 @@ int main() {
     if (pointer_str_array == NULL) {
         printf("Memory could not be allocated");
     } else {
-        sprintf_mine(pointer_str_array, "Hello world");
+        char exclamation_point = '!';
+        sprintf(pointer_str_array, "Hello world%c", exclamation_point);
         puts(pointer_str_array);
     }
     free(pointer_str_array);
@@ -38,23 +36,30 @@ int main() {
     return 0;
 }
 
-int s21_sprintf_mine(char *str, const char *format, ...) {
-    int realloc_counter = 2, specifier_counter = 0, is_true = TRUE;
-    // Endless for loop to iterate over the string and add it to the buffer
-    // It's not the most beautiful solution. Should replace it later
-    for (int i = 0; i > -1; ++i) {
-        while (is_true) {
-            if (format[i] != '\0') {
-                is_true = FALSE;
-            } else if (format[i] == '%') {
+int s21_sprintf(char *str, const char *format, ...) {
+    // va_list is effictively a pointer to an arguments in the varargs array
+    va_list argp;
+    // After calling va_start argp ooints at the first vararg argument
+    va_start(argp, format);
+    int realloc_counter = 2, specifier_counter = 0, index = 0;
+        while (*format != '\0') {
+            if (*format == '%') {
                 ++specifier_counter;
                 continue;
+            } else if (*format == 'c') {
+                char char_to_print = va_arg(argp, int);
+                str[index] = char_to_print;;
+                ++index;
+                continue;
             } else {
-                str[i] = format[i];
+                str[index] = *format;
                 str = (char*)realloc(str, (realloc_counter)*sizeof(char));
                 ++realloc_counter;
+                ++index;
             }
+            ++format;
         }
-    }
+    // We call va_end to stop consuming the vararg arguments
+    va_end(argp);
     return 0;
 }
