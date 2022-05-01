@@ -3,9 +3,9 @@
 Task - Implement the sprintf function from the stdio.h library
 + 1. Write the results to a character string buffer
 2. Formatting support:
-    a. Specifiers: c, d, i, f, s, u, %
+    + a. Specifiers: c, d, i, f, s, u, %
         + 1. Choose return type funciton
-        2. Pass to the choose return type function pointer to int which is going to point to data type. Write a function that calls 
+        + 2. Pass to the choose function return type function pointer to int which is going to point to data type in enum. Write an if-else
     b. Flags: -, +, (space)
     c. Width description: (number)
     d. Precision description: .(number)
@@ -77,23 +77,31 @@ int s21_sprintf(char *str, const char *format, ...) {
                 ++format;
                 if (choose_return_type(format, &specifier_index)) {
                     char char_to_print = '\0';
+                    const char *pointer_char_to_print = &char_to_print;
                     if (specifier_index == CHARACTER_C ||
                         specifier_index == SIGNED_DECIMAL_INTEGER_D ||
-                        specifier_index == SIGNED_INTEGER_I ||
-                        specifier_index == UNSINGNED_OCTAL_O) {
+                        specifier_index == SIGNED_INTEGER_I) {
                         // va_arg takes the pointer and a type, 
                         // increments the pointer by that size and returns it as a char
                         char_to_print = va_arg(argp, int); 
-                        // should be char for CHARACTER_C but for whatever reason it doesn't allow to set datatype to char
                     } else if (specifier_index == DECIMAL_FLOATING_POINT_E ||
-                            specifier_index == DECIMAL_FLOATING_POINT_E_CAPITAL ||
-                            specifier_index == DECIMAL_FLOATING_POINT_F ||
-                            specifier_index == DECIMAL_FLOATING_POINT_G ||
-                            specifier_index == DECIMAL_FLOATING_POINT_G_CAPTIAL) {
-                        char_to_print = va_arg(argp, double); // float
+                        specifier_index == DECIMAL_FLOATING_POINT_E_CAPITAL ||
+                        specifier_index == DECIMAL_FLOATING_POINT_F ||
+                        specifier_index == DECIMAL_FLOATING_POINT_G ||
+                        specifier_index == DECIMAL_FLOATING_POINT_G_CAPTIAL) {
+                        char_to_print = va_arg(argp, double);
+                    } else if (specifier_index == UNSINGNED_OCTAL_O ||
+                        specifier_index == UNSIGNED_DECIMAL_INTEGER_U ||
+                        specifier_index == UNSIGNED_HEXADECIMAL_INTEGER_X ||
+                        specifier_index == UNSIGNED_HEXADECIMAL_INTEGER_X_CAPITAL) {
+                        char_to_print = va_arg(argp, unsigned int);
                     } else if (specifier_index == STRING_S) {
-                        char_to_print = va_arg(argp, int);
-                    } 
+                        pointer_char_to_print = va_arg(argp, char*);
+                        char_to_print = *pointer_char_to_print;
+                    } else if (specifier_index == POINTER_ADDRESS_P) {
+                         pointer_char_to_print = va_arg(argp, void*);
+                         char_to_print = *pointer_char_to_print;
+                     } 
                     str[index] = char_to_print;
                     ++index;
                     continue;
