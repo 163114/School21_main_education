@@ -16,20 +16,9 @@ Task - Implement the sprintf function from the stdio.h library
 6. Implement the function in the s21_string.h library
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-// The function is used in vararg arguments in the s21_printf function
-#include <stdarg.h>
+#include "s21_sprintf.h"
 // Include the the char array of specifiers
 #include "s21_specifiers.h"
-
-int s21_sprintf(char *str, const char *format, ...);
-int choose_return_type(const char *format, int *specifier_index);
-
-enum is_true{
-    FALSE,
-    TRUE
-};
 
 int main() {
     char *pointer_str_array;
@@ -59,7 +48,7 @@ int choose_return_type(const char *format, int *specifier_index) {
     for (int i = 0; i < amount_of_specifiers; ++i) {
         if (specifiers[i] == *format) {
             is_true = TRUE;
-            printf("i = %d", i);
+            printf("i = %d\n", i);
             *specifier_index = i;
         }
     }
@@ -104,6 +93,7 @@ int s21_sprintf(char *str, const char *format, ...) {
                      } 
                     str[index] = char_to_print;
                     ++index;
+                    ++format;
                     continue;
                 }
             } else {
