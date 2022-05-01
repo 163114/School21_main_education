@@ -4,6 +4,8 @@ Task - Implement the sprintf function from the stdio.h library
 + 1. Write the results to a character string buffer
 2. Formatting support:
     a. Specifiers: c, d, i, f, s, u, %
+        + 1. Choose return type funciton
+        2. Pass to the choose return type function pointer to int which is going to point to data type. Write a function that calls 
     b. Flags: -, +, (space)
     c. Width description: (number)
     d. Precision description: .(number)
@@ -39,11 +41,6 @@ enum is_true{
     TRUE
 };
 
-enum datatype{
-    CHAR,
-    INT
-};
-
 int main() {
     char *pointer_str_array;
     pointer_str_array = (char*)malloc(1*sizeof(char));
@@ -53,6 +50,16 @@ int main() {
         char exclamation_point = '!';
         s21_sprintf(pointer_str_array, "Hello world%c!%c", exclamation_point, exclamation_point);
         puts(pointer_str_array);
+        
+        // Want to see how other types work besides char and int
+        free(pointer_str_array);
+        pointer_str_array = NULL;
+        char *pointer_str_array;
+        pointer_str_array = (char*)malloc(1*sizeof(char));
+        int c = 28;
+        s21_sprintf(pointer_str_array, "Unsigned hexadecimal integer - %x\n", c);
+        puts(pointer_str_array);
+        // End of test for %x. Delete that later
     }
     free(pointer_str_array);
     pointer_str_array = NULL;
@@ -68,7 +75,8 @@ int choose_return_type(const char *format, int *specifier_index) {
             *specifier_index = i;
         }
     }
-    printf("specifier index in return choose = %d\n", *specifier_index);
+    // Delete that later
+    // printf("specifier index in return choose = %d\n", *specifier_index);
     return is_true;
 }
 
@@ -77,18 +85,17 @@ int s21_sprintf(char *str, const char *format, ...) {
     va_list argp;
     // After calling va_start argp ooints at the first vararg argument
     va_start(argp, format);
-    int realloc_counter = 2, specifier_counter = 0, index = 0, specifier_index = -1;
+    int realloc_counter = 2, index = 0, specifier_index = -1;
         while (*format != '\0') {
             if (*format == '%') {
-                ++specifier_counter;
                 ++format;
                 // Replace that if with a function to keep specifier easy, short and simple
                 // Add pointer to index of char specifier and call that index using an enum
                 // where each one is specific type of data
                     if (choose_return_type(format, &specifier_index)) {
                     char char_to_print = va_arg(argp, int);
-                    printf("%d\n", specifier_index);
                     str[index] = char_to_print;
+                    // printf("%d\n", specifier_index);
                     ++index;
                     continue;
                     }
