@@ -1,24 +1,27 @@
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra -std=c11 -c
 
-# SOURCE_DIRECTORIES=data_structures field translating_calculating drawing parsing_expression input program
+SOURCE_DIRECTORIES=s21_strlen s21_strcmp
+
+DEPENDENCY_DIRECTORY=dependencies
+BUILD_DIRECTORY=build
+
+# TARGET=$(BUILD_DIRECTORY)/graph.exe
+TARGET_TEST=$(BUILD_DIRECTORY)/s21_string_test.out
 
 
-DEPENDENCY_DIRECTORY=../dependencies
-BUILD_DIRECTORY=../build
+# OBJECT_MAIN=$(BUILD_DIRECTORY)/graph.o
+OBJECT_MAIN_TEST=$(BUILD_DIRECTORY)/s21_string_test.o
 
-TARGET=$(BUILD_DIRECTORY)/graph.exe
-TARGET_TEST=$(BUILD_DIRECTORY)/graph_test.exe
+ALL_TESTS_IN_ONE_FILE=$(BUILD_DIRECTORY)/s21_string_test.check
 
-
-OBJECT_MAIN=$(BUILD_DIRECTORY)/graph.o
-OBJECT_MAIN_TEST=$(BUILD_DIRECTORY)/graph_test.o
-
-
+ALL_TESTS_IN_ONE_FILE_GENERATED=$(BUILD_DIRECTORY)/s21_string_test.c
 
 SOURCE_FILES_ALL=$(foreach directory_as_variable, $(SOURCE_DIRECTORIES),$(wildcard $(directory_as_variable)/*.c))
-SOURCE_FILES=$(filter-out %_test.c, $(SOURCE_FILES_ALL))
-SOURCE_FILES_TESTS=$(filter %_test.c, $(SOURCE_FILES_ALL))
+# SOURCE_FILES=$(filter-out %_test.c, $(SOURCE_FILES_ALL))
+# SOURCE_FILES_TESTS=$(filter %_test.c, $(SOURCE_FILES_ALL))
+SOURCE_FILES_TESTS=$(foreach directory_as_variable, $(SOURCE_DIRECTORIES),$(wildcard $(directory_as_variable)/*.check))
+# SOURCE_FILES_TESTS=$(notdir $(SOURCE_FILES_TESTS))
 
 
 
@@ -58,6 +61,16 @@ run_test: test
 test: $(TARGET_TEST)
 
 
+unite_tests: $(ALL_TESTS_IN_ONE_FILE)
+
+
+generate_all_tests: $(ALL_TESTS_IN_ONE_FILE_GENERATED)
+
+
+$(ALL_TESTS_IN_ONE_FILE_GENERATED): $(ALL_TESTS_IN_ONE_FILE)
+		checkmk $< > $@
+
+
 $(TARGET): $(OBJECT_FILES_IN_BUILD_DIRECTORIES) $(OBJECT_MAIN)
 		$(CC) -o $@ $^
 
@@ -67,15 +80,20 @@ $(TARGET_TEST): $(OBJECT_FILES_IN_BUILD_DIRECTORIES) $(OBJECT_MAIN_TEST) $(OBJEC
 
 
 
-$(OBJECT_MAIN): graph.c $(DEPENDENCY_DIRECTORY)/graph.d | $(DEPENDENCY_DIRECTORY)
-		mkdir -p $(DEPENDENCY_DIRECTORY)/$(dir $*)
-		$(CC) $(CFLAGS) -o $@ $< -MT $@ -MMD -MP -MF $(DEPENDENCY_DIRECTORY)/graph.d
+# $(OBJECT_MAIN): graph.c $(DEPENDENCY_DIRECTORY)/graph.d | $(DEPENDENCY_DIRECTORY)
+# mkdir -p $(DEPENDENCY_DIRECTORY)/$(dir $*)
+# $(CC) $(CFLAGS) -o $@ $< -MT $@ -MMD -MP -MF $(DEPENDENCY_DIRECTORY)/graph.d
 
 
-$(OBJECT_MAIN_TEST): graph.c $(DEPENDENCY_DIRECTORY)/graph.d | $(DEPENDENCY_DIRECTORY)
-		mkdir -p $(DEPENDENCY_DIRECTORY)/$(dir $*)
-		$(CC) $(CFLAGS) -D TEST_GRAPH_ -o $@ $<  -MT $@ -MMD -MP -MF $(DEPENDENCY_DIRECTORY)/graph.d
+# $(OBJECT_MAIN_TEST): graph.c $(DEPENDENCY_DIRECTORY)/graph.d | $(DEPENDENCY_DIRECTORY)
+# mkdir -p $(DEPENDENCY_DIRECTORY)/$(dir $*)
+# $(CC) $(CFLAGS) -D TEST_GRAPH_ -o $@ $<  -MT $@ -MMD -MP -MF $(DEPENDENCY_DIRECTORY)/graph.d
 
+
+$(ALL_TESTS_IN_ONE_FILE): $(SOURCE_FILES_TESTS)
+		mkdir -p $(dir $@)
+		touch $(notdir $@)
+		cat $^ >> $@
 
 
 $(OBJECT_FILES_ALL_IN_BUILD_DIRECTORIES): $(BUILD_DIRECTORY)/%.o: %.c $(DEPENDENCY_DIRECTORY)/%.d | $(DEPENDENCY_DIRECTORY)
@@ -93,9 +111,14 @@ $(DEPENDENCY_FILES_ALL_IN_DEPENDENCY_DIRECTORIES):
 
 
 
+
 clean: 
 		rm -rf $(BUILD_DIRECTORY)/* $(DEPENDENCY_DIRECTORY)/*
 
+
+print:
+		echo $(SOURCE_FILES_TESTS)
+		echo $(notdir $(SOURCE_FILES_TESTS))
 
 
 
