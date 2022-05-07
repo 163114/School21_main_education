@@ -131,7 +131,7 @@ clean:
 
 
 print:
-		# echo $(SOURCE_DIRECTORIES)
+		# echo $(DEPENDENCY_DIRECTORIES)
 
 
 include $(wildcard $(DEPENDENCY_FILES_ALL_IN_DEPENDENCY_DIRECTORIES))
