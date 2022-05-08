@@ -1,10 +1,12 @@
 #ifndef SRC_S21_STRING_H_
 #define SRC_S21_STRING_H_
 
+#include "s21_string_types.h"
+
 #include "s21_strlen/s21_strlen.h"
 #include "s21_strcmp/s21_strcmp.h"
+#include "s21_memchr/s21_memchr.h"
 
-typedef long unsigned s21_size_t;
 // void	*s21_memchr(const void *__s, int __c, s21_size_t __n);
 // int	 s21_memcmp(const void *__s1, const void *__s2, s21_size_t __n);
 // void	*s21_memcpy(void *__dst, const void *__src, s21_size_t __n);
