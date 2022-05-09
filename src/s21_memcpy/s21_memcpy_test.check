@@ -1,0 +1,32 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_memcpy_test1
+    const char *source = "Hello, I am your new coach. Surprised?";
+    
+    char s21_destination[100];
+    memset(s21_destination, 0, 100);
+    char destination[100];
+    memset(destination, 0, 100);
+    
+    const s21_size_t size = s21_strlen(source);
+
+    s21_memcpy(s21_destination, source, size);
+    memcpy(destination, source, size);
+
+    ck_assert_mem_eq(s21_destination, destination, size);
+
+#test s21_memcpy_test2
+    const char *source = "Hello, I am your new coach. Surprised? Stunned?";
+    
+    char s21_destination[100];
+    memset(s21_destination, 0, 100);
+    char destination[100];
+    memset(destination, 0, 100);
+    
+    const s21_size_t size = s21_strlen(source);
+
+    s21_memcpy(s21_destination, source, size);
+    memcpy(destination, source, size);
+
+    ck_assert_mem_eq(s21_destination, destination, size);
