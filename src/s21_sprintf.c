@@ -26,27 +26,31 @@ int main() {
     if (pointer_str_array == NULL) {
         printf("Memory could not be allocated");
     } else {
+    
+        // %c
         char exclamation_point = '!';
-        s21_sprintf(pointer_str_array, "Hello world%c!%c\n", exclamation_point, exclamation_point);
+        // s21_sprintf(pointer_str_array, "Hello world%c!%c\n", exclamation_point, exclamation_point);
+        // puts(pointer_str_array);
+
+        // %d
+        int number_six = 6;
+        s21_sprintf(pointer_str_array, "Hello world%d!%c\n", number_six, exclamation_point);
         puts(pointer_str_array);
-        
-        free(pointer_str_array);
-        pointer_str_array = NULL;
-        char *pointer_str_array;
-        pointer_str_array = (char*)malloc(1*sizeof(char));
-        char hello[] = "Hello";
-        s21_sprintf(pointer_str_array, "%s world%c!%c\n", hello, exclamation_point, exclamation_point);
-        puts(pointer_str_array);
+
+        // %s        
+        // char hello[] = "Hello";
+        // s21_sprintf(pointer_str_array, "%s world%c!%c\n", hello, exclamation_point, exclamation_point);
+        // puts(pointer_str_array);
     }
     free(pointer_str_array);
     pointer_str_array = NULL;
     return 0;
 }
 
-int choose_return_type(const char *format, int *specifier_index) {
+int choose_return_type(const char *buffer, int *specifier_index) {
     int amount_of_specifiers = 15, is_true = FALSE;
     for (int i = 0; i < amount_of_specifiers; ++i) {
-        if (specifiers[i] == *format) {
+        if (specifiers[i] == *buffer) {
             is_true = TRUE;
             printf("i = %d\n", i);
             *specifier_index = i;
@@ -55,7 +59,7 @@ int choose_return_type(const char *format, int *specifier_index) {
     return is_true;
 }
 
-int s21_sprintf(char *str, const char *format, ...) {
+int s21_sprintf(char *buffer, const char *format, ...) {
     // va_list is effictively a pointer to an arguments in the varargs array
     va_list argp;
     // After calling va_start argp ooints at the first vararg argument
@@ -91,14 +95,14 @@ int s21_sprintf(char *str, const char *format, ...) {
                          pointer_char_to_print = va_arg(argp, void*);
                          char_to_print = *pointer_char_to_print;
                      } 
-                    str[index] = char_to_print;
+                    buffer[index] = char_to_print;
                     ++index;
                     ++format;
                     continue;
                 }
             } else {
-                str[index] = *format;
-                str = (char*)realloc(str, (realloc_counter)*sizeof(char));
+                buffer[index] = *format;
+                buffer = (char*)realloc(buffer, (realloc_counter)*sizeof(char));
                 ++realloc_counter;
                 ++index;
             }
