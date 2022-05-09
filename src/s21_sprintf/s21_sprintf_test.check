@@ -1,0 +1,34 @@
+#include <string.h>
+#include <stdio.h>
+#include "../s21_string.h"
+
+#test s21_sprintf_test1
+    const int input = 15;
+    const char *format = "%d";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input);
+    const int result = sprintf(buffer, format, input);
+    
+    ck_assert_int_eq(s21_result, result);
+    ck_assert_mem_eq(s21_buffer, buffer, 100);
+
+
+#test s21_sprintf_test2
+    const float input = 15.55;
+    const char *format = "%f";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input);
+    const int result = sprintf(buffer, format, input);
+    
+    ck_assert_int_eq(s21_result, result);
+    ck_assert_mem_eq(s21_buffer, buffer, 100);
