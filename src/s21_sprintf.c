@@ -34,7 +34,7 @@ int main() {
         pointer_str_array = NULL;
         char *pointer_str_array;
         pointer_str_array = (char*)malloc(1*sizeof(char));
-        char hello[5] = {'H', 'e', 'l', 'l', 'o'};
+        char hello[] = "Hello";
         s21_sprintf(pointer_str_array, "%s world%c!%c\n", hello, exclamation_point, exclamation_point);
         puts(pointer_str_array);
     }
