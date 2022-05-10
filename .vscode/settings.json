@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "check.h": "c",
+        "string.h": "c",
+        "_size_t.h": "c",
+        "stdlib.h": "c",
+        "cstring": "c",
+        "__availability": "c",
+        "__config": "c",
+        "condition_variable": "c",
+        "functional": "c",
+        "memory": "c",
+        "ostream": "c",
+        "thread": "c",
+        "type_traits": "c"
+    }
+}

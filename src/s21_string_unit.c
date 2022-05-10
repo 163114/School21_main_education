@@ -363,7 +363,7 @@ START_TEST(strlen_test_1)
 } END_TEST
 
 START_TEST(strlen_test_2)
-{"="));
+{
     ck_assert_uint_eq(s21_strlen(str), strlen(str));
 } END_TEST
 
