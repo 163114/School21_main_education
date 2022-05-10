@@ -42,6 +42,11 @@ rerun_test: clean run_test
 gcov_report: run_test
 		gcovr -r . --html --html-details -o coverage_report.html
 
+leaks: run_test
+		leaks -atExit -- $(TARGET_TEST)
+
+leaks_short: run_test
+		leaks -atExit -- $(TARGET_TEST) | grep LEAK
 
 $(TEST_FILE_GENERATED): $(TEST_FILE)
 		checkmk $< > $@
