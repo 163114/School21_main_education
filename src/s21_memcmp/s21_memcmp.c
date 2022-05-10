@@ -13,4 +13,4 @@ int s21_memcmp(const void *string1, const void *string2, s21_size_t size) {
     const unsigned char* string_uchar2 = (const unsigned char*)string2;
 
     return s21_memcmp_not_like_shit(string_uchar1, string_uchar2, size);
-}
+
