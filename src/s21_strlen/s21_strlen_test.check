@@ -2,6 +2,6 @@
 #include "../s21_string.h"
 
 #test s21_strlen_test
-    const char *input = "Hello, I am your new coach.";
+    const char *input = "Hello, I am your new coach.";    
     ck_assert_uint_eq(s21_strlen(input), strlen(input));
 
