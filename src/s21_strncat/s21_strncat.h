@@ -2,6 +2,7 @@
 #define SRC_S21_STRNCAT_H
 
 #include "../s21_string_types.h"
+#include <stdlib.h>
 
 char *s21_strncat(char *dest, const char *src, s21_size_t n);
 

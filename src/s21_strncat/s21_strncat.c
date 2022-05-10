@@ -2,14 +2,11 @@
 
 char *s21_strncat(char *dest, const char *src, s21_size_t n)
 {
-    s21_size_t len = s21_strlen(src);
-    char s[n];
-    if (n < len)
-    {
-        for (s21_size_t i = 0; i < n; i++) s[i] = src[i];
-        s21_strcat(dest, s);
-    } else {
-        s21_strcat(dest, src);
-    }
+    s21_size_t len1 = s21_strlen(dest);
+    char *s = (char*) malloc((len1 + s21_strlen(src)) * sizeof(char));
+    for (s21_size_t i = 0; i < n + len1; i++)
+        s[i] = i < len1? dest[i]: src[i - len1];
+    dest = s;
     return dest;
 }
+
