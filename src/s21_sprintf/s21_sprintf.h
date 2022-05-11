@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #ifndef S21_SPRINTF_H
 #define S21_SPRINTF_H
 
@@ -16,13 +15,3 @@ enum is_true{
 };
 
 #endif
-=======
-#ifndef SRC_S21_SPRINTF_S21_SPRINTF_H
-#define SRC_S21_SPRINTF_S21_SPRINTF_H
-
-#include "../s21_string.h"
-
-int s21_sprintf(char *buffer, const char *format, ...);
-
-#endif  //  SRC_S21_SPRINTF_S21_SPRINTF_H
->>>>>>> origin/develop-mike-elviaatt-ready
