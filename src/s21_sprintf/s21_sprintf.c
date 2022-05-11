@@ -33,7 +33,7 @@ int main() {
         // puts(pointer_str_array);
 
         // %d
-        int number_six = 6;
+        int number_six = '6';
         s21_sprintf(pointer_str_array, "Hello world%d!%c\n", number_six, exclamation_point);
         puts(pointer_str_array);
 
