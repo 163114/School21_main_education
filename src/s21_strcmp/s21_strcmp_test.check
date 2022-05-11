@@ -1,0 +1,8 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_strcmp_test
+    const char *input11 = "Hello, I am your new coach.";
+    const char *input12 = "Hello, I am your new coach.";
+    ck_assert_int_eq(s21_strcmp(input11, input12), strcmp(input11, input12));
+

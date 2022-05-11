@@ -1,0 +1,43 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_memset_test1
+
+    const char symbol = 'a';
+    const int length = 15;
+
+    char s21_string[100];
+    s21_memset(s21_string, symbol, length);
+
+    char string[100];
+    memset(string, symbol, length);
+
+    ck_assert_mem_eq(s21_string, string, length);
+
+
+#test s21_memset_test2
+
+    const char symbol = 'r';
+    const int length = 35;
+
+    char s21_string[100];
+    s21_memset(s21_string, symbol, length);
+
+    char string[100];
+    memset(string, symbol, length);
+
+    ck_assert_mem_eq(s21_string, string, length);
+
+
+#test s21_memset_test3
+
+    const char symbol = '\0';
+    const int length = 98;
+
+    char s21_string[100];
+    s21_memset(s21_string, symbol, length);
+
+    char string[100];
+    memset(string, symbol, length);
+
+    ck_assert_mem_eq(s21_string, string, length);
