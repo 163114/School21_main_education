@@ -1,0 +1,32 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_strrchr_test1
+    const char *string = "Hello, I am your new coach.";
+    const char symbol = 'y';
+    ck_assert_ptr_eq(s21_strrchr(string, symbol), strrchr(string, symbol));
+
+#test s21_strrchr_test2
+    const char *string = "Hello, I am your new coach.";
+    const char symbol = 'f';
+    ck_assert_ptr_eq(s21_strrchr(string, symbol), strrchr(string, symbol));
+
+#test s21_strrchr_test3
+    const char *string = "You fucking cocksucker!";
+    const char symbol = 'f';
+    ck_assert_ptr_eq(s21_strrchr(string, symbol), strrchr(string, symbol));
+
+#test s21_strrchr_test4
+    const char *string = "You fucking cocksucker, holy fuck!";
+    const char symbol = 'f';
+    ck_assert_ptr_eq(s21_strrchr(string, symbol), strrchr(string, symbol));
+
+#test s21_strrchr_test5
+    const char *string = "";
+    const char symbol = 'f';
+    ck_assert_ptr_eq(s21_strrchr(string, symbol), strrchr(string, symbol));
+
+#test s21_strrchr_test6
+    const char *string = "UUURRRGGGGGHHHH DAAAAAA FUUUUUUCK!!!!!";
+    const char symbol = 'F';
+    ck_assert_ptr_eq(s21_strrchr(string, symbol), strrchr(string, symbol));
