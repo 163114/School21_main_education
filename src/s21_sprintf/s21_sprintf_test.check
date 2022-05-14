@@ -3,38 +3,6 @@
 #include "../s21_string.h"
 
 #test s21_sprintf_test1
-    const int input = 15;
-    const char *format = "%d";
-
-    char s21_buffer[100];
-    memset(s21_buffer, 0, 100);
-    char buffer[100];
-    memset(buffer, 0, 100);
-
-    const int s21_result = s21_sprintf(s21_buffer, format, input);
-    const int result = sprintf(buffer, format, input);
-    
-    ck_assert_str_eq(s21_buffer, buffer);
-
-
-
-#test s21_sprintf_test2
-    const float input = 15.55;
-    const char *format = "%f";
-
-    char s21_buffer[100];
-    memset(s21_buffer, 0, 100);
-    char buffer[100];
-    memset(buffer, 0, 100);
-
-    const int s21_result = s21_sprintf(s21_buffer, format, input);
-    const int result = sprintf(buffer, format, input);
-    
-    ck_assert_str_eq(s21_buffer, buffer);
-
-
-
-#test s21_sprintf_test3
     const char input = '!';
     const char *format = "Hello, World%c!%c";
 
@@ -49,24 +17,25 @@
     ck_assert_str_eq(s21_buffer, buffer);
  
 
-#test s21_sprintf_test4
-    const char input = '!';
-    const char *format = "Hello, World%c!%c%c";
+#test s21_sprintf_test2
+    const char first_input = '!';
+    const char second_input = '?';
+    const char *format = "%c%c%cHello, World%c!%c%c";
 
     char s21_buffer[100];
     memset(s21_buffer, 0, 100);
     char buffer[100];
     memset(buffer, 0, 100);
 
-    const int s21_result = s21_sprintf(s21_buffer, format, input, input, input);
-    const int result = sprintf(buffer, format, input, input, input);
+    const int s21_result = s21_sprintf(s21_buffer, format, first_input, first_input, first_input, second_input, second_input, second_input);
+    const int result = sprintf(buffer, format, first_input, first_input, first_input, second_input, second_input, second_input);
     
     ck_assert_str_eq(s21_buffer, buffer);
 
 
-#test s21_sprintf_test5
+#test s21_sprintf_test3
     const char input = '!';
-    const char *format = "Hello, World%c!%c%c";
+    const char *format = "Hello, World%d%d%d";
 
     char s21_buffer[100];
     memset(s21_buffer, 0, 100);
@@ -78,4 +47,6 @@
     
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
+
+
 

@@ -13,40 +13,63 @@
 START_TEST(s21_sprintf_test1)
 {
 #line 6
-    const int input = 15;
-    const char *format = "%d";
+    const char input = '!';
+    const char *format = "Hello, World%c!%c";
 
     char s21_buffer[100];
     memset(s21_buffer, 0, 100);
     char buffer[100];
     memset(buffer, 0, 100);
 
-    const int s21_result = s21_sprintf(s21_buffer, format, input);
-    const int result = sprintf(buffer, format, input);
+    const int s21_result = s21_sprintf(s21_buffer, format, input, input);
+    const int result = sprintf(buffer, format, input, input);
     
-    ck_assert_int_eq(s21_result, result);
-    ck_assert_mem_eq(s21_buffer, buffer, 100);
-
+    ck_assert_str_eq(s21_buffer, buffer);
+ 
 
 }
 END_TEST
 
 START_TEST(s21_sprintf_test2)
 {
-#line 22
-    const float input = 15.55;
-    const char *format = "%f";
+#line 21
+    const char first_input = '!';
+    const char second_input = '?';
+    const char *format = "%c%c%cHello, World%c!%c%c";
 
     char s21_buffer[100];
     memset(s21_buffer, 0, 100);
     char buffer[100];
     memset(buffer, 0, 100);
 
-    const int s21_result = s21_sprintf(s21_buffer, format, input);
-    const int result = sprintf(buffer, format, input);
+    const int s21_result = s21_sprintf(s21_buffer, format, first_input, first_input, first_input, second_input, second_input, second_input);
+    const int result = sprintf(buffer, format, first_input, first_input, first_input, second_input, second_input, second_input);
     
+    ck_assert_str_eq(s21_buffer, buffer);
+
+
+}
+END_TEST
+
+START_TEST(s21_sprintf_test3)
+{
+#line 37
+    const char input = '!';
+    const char *format = "Hello, World%d%d%d";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input, input, input);
+    const int result = sprintf(buffer, format, input, input, input);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
-    ck_assert_mem_eq(s21_buffer, buffer, 100);
+
+
+
 }
 END_TEST
 
@@ -60,6 +83,7 @@ int main(void)
     suite_add_tcase(s1, tc1_1);
     tcase_add_test(tc1_1, s21_sprintf_test1);
     tcase_add_test(tc1_1, s21_sprintf_test2);
+    tcase_add_test(tc1_1, s21_sprintf_test3);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
