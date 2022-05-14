@@ -3,7 +3,7 @@
 s21_size_t s21_strlen(const char *string) {
     s21_size_t length = 0ul;
 
-    while (string[length])  //  '\0' implicitly is converted to false
+    while (string[length])  //  '\0' is implicitly converted to false
         ++length;
 
     return length;
