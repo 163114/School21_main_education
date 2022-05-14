@@ -1,0 +1,81 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_strstr_test1
+    const char *string = "Hello, I am your new coach.";
+    const char *substring = "coach";
+
+    ck_assert_str_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test2
+    const char *string = "You fucking cocksucker!";
+    const char *substring = "fucking";
+    
+    ck_assert_str_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test3
+    const char *string = "UUURRRGGGGGHHHH DAAAAAA FUUUUUUCK!!!!! SHEEEEEAAAAT!!!! FUUUUUUCK!!!";
+    const char *substring = "FUUUUUUCK";
+    
+    ck_assert_str_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test4
+    const char *string = "Hello, I am your new coach.";
+    const char *substring = "interlocutor";
+    
+    // ck_assert_str_eq(null, null) returns failed test
+    // that's why ck_assert_ptr_eq instead of ck_assert_str_eq
+    ck_assert_ptr_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test5
+    const char *string = "You fucking cocksucker, holy fuck!";
+    const char *substring = "You fucking cocksucker!!!";
+    
+    // ck_assert_str_eq(null, null) returns failed test
+    // that's why ck_assert_ptr_eq instead of ck_assert_str_eq
+    ck_assert_ptr_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test6
+    const char *string = "UUURRRGGGGGHHHH DAAAAAA FUUUUUUCK!!!!!";
+    const char *substring = "da fuck";
+
+    // ck_assert_str_eq(null, null) returns failed test
+    // that's why ck_assert_ptr_eq instead of ck_assert_str_eq
+    ck_assert_ptr_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test7
+    const char *string = "";
+    const char *substring = ""; // IMPORTANT CASE
+    
+    ck_assert_str_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test8
+    const char *string = "Hey";
+    const char *substring = ""; // IMPORTANT CASE
+    
+    ck_assert_str_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test9
+    const char *string = "Hey";
+    const char *substring = "Hey yo"; // IMPORTANT CASE
+    
+    // ck_assert_str_eq(null, null) returns failed test
+    // that's why ck_assert_ptr_eq instead of ck_assert_str_eq
+    ck_assert_ptr_eq(s21_strstr(string, substring), strstr(string, substring));
+
+
+#test s21_strstr_test10
+    const char *string = "";
+    const char *substring = "Hey yo"; // IMPORTANT CASE
+    
+    // ck_assert_str_eq(null, null) returns failed test
+    // that's why ck_assert_ptr_eq instead of ck_assert_str_eq
+    ck_assert_ptr_eq(s21_strstr(string, substring), strstr(string, substring));
