@@ -1,17 +1,8 @@
-#ifndef S21_SPRINTF_H
-#define S21_SPRINTF_H
+#ifndef SRC_S21_SPRINTF_S21_SPRINTF_H
+#define SRC_S21_SPRINTF_S21_SPRINTF_H
 
-#include <stdio.h>
-#include <stdlib.h>
-// The function is used in vararg arguments in the s21_printf function
-#include <stdarg.h>
+#include "../s21_string.h"
 
 int s21_sprintf(char *buffer, const char *format, ...);
-int choose_return_type(const char *buffer, int *specifier_index);
 
-enum is_true{
-    FALSE,
-    TRUE
-};
-
-#endif
+#endif  //  SRC_S21_SPRINTF_S21_SPRINTF_H

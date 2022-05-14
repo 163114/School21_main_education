@@ -53,3 +53,9 @@ dkms.conf
 
 
 src/build*
+*/build/*
+
+# Coverage report files
+*.gcno
+*.gcda
+*.html
