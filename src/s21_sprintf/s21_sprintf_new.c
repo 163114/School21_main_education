@@ -1,6 +1,8 @@
 // Copyright 2022 finchren
 /*
 Task - Implement the sprintf function from the stdio.h library
+What to return - number of characters written to buffer 
+(not counting the terminating null character), or a negative value if an encoding error (for string and character conversion specifiers) occurred
 1. Write the results to a character string buffer
 2. Formatting support:
     a. Specifiers: 
@@ -56,7 +58,7 @@ int s21_sprintf(char *buffer, const char *format, ...) {
     }
     // We call va_end to stop consuming the vararg arguments
     va_end(argp);
-    return 0;
+    return index;
 }
 
 void choose_return_type(char *buffer, const char *format, int index, va_list argp) {
