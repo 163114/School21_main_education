@@ -14,8 +14,8 @@
     const int s21_result = s21_sprintf(s21_buffer, format, input);
     const int result = sprintf(buffer, format, input);
     
-    ck_assert_int_eq(s21_result, result);
-    ck_assert_mem_eq(s21_buffer, buffer, 100);
+    ck_assert_str_eq(s21_buffer, buffer);
+
 
 
 #test s21_sprintf_test2
@@ -30,5 +30,52 @@
     const int s21_result = s21_sprintf(s21_buffer, format, input);
     const int result = sprintf(buffer, format, input);
     
+    ck_assert_str_eq(s21_buffer, buffer);
+
+
+
+#test s21_sprintf_test3
+    const char input = '!';
+    const char *format = "Hello, World%c!%c";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input, input);
+    const int result = sprintf(buffer, format, input, input);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+ 
+
+#test s21_sprintf_test4
+    const char input = '!';
+    const char *format = "Hello, World%c!%c%c";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input, input, input);
+    const int result = sprintf(buffer, format, input, input, input);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+
+
+#test s21_sprintf_test5
+    const char input = '!';
+    const char *format = "Hello, World%c!%c%c";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input, input, input);
+    const int result = sprintf(buffer, format, input, input, input);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
-    ck_assert_mem_eq(s21_buffer, buffer, 100);
+
