@@ -33,42 +33,42 @@ What to return - number of characters written to buffer
 #include "s21_sprintf.h"
 
 char* s21_itoa(int number, char *buffer, int base) {
-    int current = 0;  
-    if (number == 0) {  
-        buffer[current++] = '0';  
-        buffer[current] = '\0';  
-        return buffer;  
-    }  
-    int num_digits = 0;  
-    if (number < 0) {  
-        if (base == 10) {  
-        ++num_digits;  
-        buffer[current] = '-';  
-        ++current;  
-        number *= -1;  
-    } else { 
+    int current = 0;
+    if (number == 0) {
+        buffer[current++] = '0';
+        buffer[current] = '\0';
+        return buffer;
+    }
+    int num_digits = 0;
+    if (number < 0) {
+        if (base == 10) {
+        ++num_digits;
+        buffer[current] = '-';
+        ++current;
+        number *= -1;
+    } else {
         return NULL;
-        }  
-    }  
-    num_digits += (int)floor(log(number) / log(base)) + 1;  
-    while (current < num_digits) {  
-        int base_val = (int) pow(base, num_digits -1 -current);  
-        int num_val = number / base_val;  
-        char value = num_val + '0';  
-        buffer[current] = value;  
-        ++current;  
-        number -= base_val * num_val;  
-    }  
-    buffer[current] = '\0';  
-    return buffer;  
+        }
+    }
+    num_digits += (int)floor(log(number) / log(base)) + 1;
+    while (current < num_digits) {
+        int base_val = (int) pow(base, num_digits -1 -current);
+        int num_val = number / base_val;
+        char value = num_val + '0';
+        buffer[current] = value;
+        ++current;
+        number -= base_val * num_val;
+    }
+    buffer[current] = '\0';
+    return buffer;
 }
 
 int main() {
     char buffer[100];
     // char exclamation_point = '!';
-    int number = 2147483640;
+    int number = 21474836;
     // s21_sprintf(buffer, "Hello world%c!%c\n", exclamation_point, exclamation_point);
-    s21_sprintf(buffer, "Hello world%d!%d\n", number, number);
+    s21_sprintf(buffer, "%dHello world%d!%d\n", number, number, number);
     puts(buffer);
     return 0;
 }
