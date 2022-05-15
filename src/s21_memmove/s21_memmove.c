@@ -1,6 +1,6 @@
 #include "s21_memmove.h"
 #include "../s21_memcpy/s21_memcpy.h"
-#include "../s21_common/s21_memcpy_forward_backward.h"
+#include "../s21_common/s21_memcpy_forward_backward/s21_memcpy_forward_backward.h"
 
 static int is_destination_overlapping_from_left(
     const unsigned char *destination, 
@@ -61,7 +61,6 @@ void *s21_memmove(void *destination, const void *source, s21_size_t size) {
             source_uchar,
             size);
 }
-
 
 // This also works, but the code is repeated
 
