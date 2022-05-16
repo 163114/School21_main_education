@@ -7,11 +7,10 @@ What to return - number of characters written to buffer
 2. Formatting support:
     a. Specifiers: 
 +       c, 
-            To finish testing of %c I need to finish %d for. Want to test how works %c as %d and the other way around
-        d,
++            To finish testing of %c I need to finish %d for. Want to test how works %c as %d and the other way around
++        d,
 +           Itoa function
-+           Put the argp number in the array of chars
-+           Find the lenght of that array - Probably don't need to do this. I can just go until \0
++           Put the argp in the array of chars and append to the buffer
         i, 
         f, 
         s, 
@@ -32,6 +31,7 @@ What to return - number of characters written to buffer
 
 #include "s21_sprintf.h"
 
+// !!! THE COMMENTED CODE IS FOR TROUBLESHOOTING. DELETE THAT LATER
 // char* s21_itoa(int number, char *buffer, int base) {
 //     int current = 0;
 //     if (number == 0) {
@@ -66,9 +66,9 @@ What to return - number of characters written to buffer
 // int main() {
 //     char buffer[100];
 //     // char exclamation_point = '!';
-//     int number = 21474836;
+//     int number = 2147483647;
 //     // s21_sprintf(buffer, "Hello world%c!%c\n", exclamation_point, exclamation_point);
-//     s21_sprintf(buffer, "%dHello world%d!%d\n", number, number, number);
+//     s21_sprintf(buffer, "%d Hello world %d ! %d\n", number, number, number);
 //     puts(buffer);
 //     return 0;
 // }
@@ -86,7 +86,6 @@ int s21_sprintf(char *buffer, const char *format, ...) {
             // Here we can call another function to which we can pass variable arguments by passing a single va_list pointer
             choose_return_type(buffer, format, &index, argp);
             ++format;
-            // ++index; Moved index to separate funcitons because like in case with int a parameter may consist of multiple indexes
         } else {
             buffer[index] = *format;
             ++index;
@@ -113,11 +112,10 @@ void c_specifier(char *buffer, int *index, va_list argp) {
 }
 
 void d_specifier(char *buffer, int *index, va_list argp) {
-    char array_for_int[10];
+    char array_for_int[12];
     int int_array_index = 0;
     s21_itoa(va_arg(argp, int), array_for_int, 10);
     while (array_for_int[int_array_index] != '\0') {
-        // printf("array_for_int[int_array_index] in while looop - %c\n", array_for_int[int_array_index]);
         buffer[*index] = array_for_int[int_array_index];
         ++int_array_index;
         ++*index;
