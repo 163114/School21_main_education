@@ -133,14 +133,14 @@ START_TEST(s21_sprintf_test6)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// DECIMAL Maximum negative value test - FAILS WHEN OF MAXIMUM LENGTH AND PASSES WHEN ONE DECIMAL SHORTER
+// DECIMAL Maximum negative value test
 }
 END_TEST
 
 START_TEST(s21_sprintf_test7)
 {
 #line 103
-    const int input_int = -214748364;
+    const int input_int = -2147483649;
     const char *format = "%d%d Hello, World %d%d";
 
     char s21_buffer[100];
@@ -216,6 +216,27 @@ START_TEST(s21_sprintf_test10)
     
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
+
+// DECIMAL Abnormal value - zero in the begging of the number
+}
+END_TEST
+
+START_TEST(s21_sprintf_test11)
+{
+#line 167
+    const int input_int = 012;
+    const char *format = "%d%d%d%d Hello, World %d%d%d%d";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
 }
 END_TEST
 
@@ -237,6 +258,7 @@ int main(void)
     tcase_add_test(tc1_1, s21_sprintf_test8);
     tcase_add_test(tc1_1, s21_sprintf_test9);
     tcase_add_test(tc1_1, s21_sprintf_test10);
+    tcase_add_test(tc1_1, s21_sprintf_test11);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
