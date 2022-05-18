@@ -9,10 +9,15 @@ void	*s21_memmove(void *__dst, const void *__src, s21_size_t __len);
 void	*s21_memset(void *__b, int __c, s21_size_t __len);
 
 char	*s21_strcat(char *__s1, const char *__s2);
-char *s21_strncat(char *dest, const char *src, size_t n);
+char *s21_strncat(char *dest, const char *src, s21_size_t n);
 char	*s21_strchr(const char *__s, int __c);
 int	 s21_strcmp(const char *__s1, const char *__s2);
-int s21_strncmp(const char *str1, const char *str2, size_t n);
+int s21_strncmp(const char *str1, const char *str2, s21_size_t n);
+
+void *s21_to_upper(const char *str);
+void *s21_to_lower(const char *str);
+void *s21_insert(const char *src, const char *str, s21_size_t start_index);
+void *s21_trim(const char *src, const char *trim_chars);
 
 s21_size_t	 s21_strcspn(const char *__s, const char *__charset);
 char	*s21_strerror(int __errnum);
