@@ -140,7 +140,7 @@ END_TEST
 START_TEST(s21_sprintf_test7)
 {
 #line 103
-    const int input_int = -2147483649;
+    const int input_int = -2147483647;
     const char *format = "%d%d Hello, World %d%d";
 
     char s21_buffer[100];
@@ -237,6 +237,27 @@ START_TEST(s21_sprintf_test11)
     
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
+
+// TO REMOVE LATER FILLER TEST FOR %I
+}
+END_TEST
+
+START_TEST(s21_sprintf_test12)
+{
+#line 183
+    const int input_int = 6;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
 }
 END_TEST
 
@@ -259,6 +280,7 @@ int main(void)
     tcase_add_test(tc1_1, s21_sprintf_test9);
     tcase_add_test(tc1_1, s21_sprintf_test10);
     tcase_add_test(tc1_1, s21_sprintf_test11);
+    tcase_add_test(tc1_1, s21_sprintf_test12);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
