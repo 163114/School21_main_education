@@ -133,6 +133,7 @@ void d_specifier(char *buffer, int *index, va_list argp) {
 void i_specifier(char *buffer, int *index, va_list argp) {
     char array_for_int[12];
     int int_array_index = 0;
+    // Use const variable that is equal to va_arg(argp, int). I need to check the cases in the notebook and then use that const value to pass to itoa with a needed base
     s21_itoa(va_arg(argp, int), array_for_int, 10);
     while (array_for_int[int_array_index] != '\0') {
         buffer[*index] = array_for_int[int_array_index];
