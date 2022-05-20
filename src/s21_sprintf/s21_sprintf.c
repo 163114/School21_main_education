@@ -135,16 +135,41 @@ void i_specifier(char *buffer, int *index, va_list argp) {
     int int_array_index = 0;
     // Use const variable that is equal to va_arg(argp, int). I need to check the cases in the notebook and then use that const value to pass to itoa with a needed base
     const int va_arg_const = va_arg(argp, int); 
-    s21_itoa(va_arg_const, array_for_int, 10);
-    while (array_for_int[int_array_index] != '\0') {
-        buffer[*index] = array_for_int[int_array_index];
-        ++int_array_index;
-        ++*index;
-    }
+    // int size_of_array = 0;
+    char flipped_array[12];
+    char *pointer_to_flipped_array = flipped_array;
+    flip_to_array(va_arg_const, pointer_to_flipped_array);
+    d_specifier(buffer, index, flipped_array);
+    // s21_itoa(va_arg_const, array_for_int, 10);
+    // while (array_for_int[int_array_index] != '\0') {
+    //     buffer[*index] = array_for_int[int_array_index];
+    //     ++int_array_index;
+    //     ++*index;
+    // }
 }
 
-int choose_base(int va_arg_const, ) {
-    int base = 10;
+// 1. Flip the va_arg_const. I need to do this so I could access '0x'-like values in the begging of the va_arg number
+// 2. Implement choose_base function after I flip the va_arg_const to an array of chars
+// Here I should choose the base on itoa based on the last chars of the flipped array of chars
+// int choose_base(int va_arg_const, ) {
+//     int base = 10;
 
-    return base;
+//     return base;
+// }
+
+int flip_to_array(int number_to_flip, char *pointer_to_array) {
+    int temp_num = number_to_flip, temp_single_num = 0, index = 0;
+    while (temp_num > 0) {
+        temp_single_num = temp_num % 10;
+        if (index == 0) {
+            pointer_to_array[index] = (char)temp_single_num;
+            temp_num /= 10;
+            index += 1;
+        } else {
+            pointer_to_array[index] = (char)temp_single_num;
+            temp_num /= 10;
+            index += 1;
+        }
+    }
+    return index;
 }

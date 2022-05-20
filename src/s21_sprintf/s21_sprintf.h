@@ -13,10 +13,11 @@ void choose_return_type(char *buffer, const char *format, int *index, va_list ar
 void c_specifier(char *buffer, int *index, va_list argp);
 void d_specifier(char *buffer, int *index, va_list argp);
 void i_specifier(char *buffer, int *index, va_list argp);
+int flip_to_array(int number_to_flip, char *pointer_to_array);
 
-enum is_true{
-    FALSE,
-    TRUE
-};
+// enum is_true{
+//     FALSE,
+//     TRUE
+// };
 
 #endif

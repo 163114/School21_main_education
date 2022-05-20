@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "../s21_string.h"
 
-// CHAR Regular value test
+// %c Regular value test
 START_TEST(s21_sprintf_test1)
 {
 #line 7
@@ -27,7 +27,7 @@ START_TEST(s21_sprintf_test1)
     
     ck_assert_str_eq(s21_buffer, buffer);
  
-// CHAR Test with a few of char variables
+// %c Test with a few of char variables
 }
 END_TEST
 
@@ -48,7 +48,7 @@ START_TEST(s21_sprintf_test2)
     
     ck_assert_str_eq(s21_buffer, buffer);
 
-// CHAR Try to print out %c as a %d value
+// %c Try to print out %c as a %d value
 }
 END_TEST
 
@@ -69,7 +69,7 @@ START_TEST(s21_sprintf_test3)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// CHAR DECIMAL Try to print both %c and %d
+// %c %d Try to print both %c and %d
 }
 END_TEST
 
@@ -91,7 +91,7 @@ START_TEST(s21_sprintf_test4)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// DECIMAL Minimum value test
+// %d Minimum value test
 }
 END_TEST
 
@@ -112,7 +112,7 @@ START_TEST(s21_sprintf_test5)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// DECIMAL Maximum range of int test
+// %d Maximum range of int test
 }
 END_TEST
 
@@ -154,7 +154,7 @@ START_TEST(s21_sprintf_test7)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// DECIMAL Normal value test
+// %d Normal value test
 }
 END_TEST
 
@@ -196,7 +196,7 @@ START_TEST(s21_sprintf_test9)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// DECIMAL Normal value test - a lot of variables
+// %d Normal value test - a lot of variables
 }
 END_TEST
 
@@ -217,7 +217,7 @@ START_TEST(s21_sprintf_test10)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// DECIMAL Abnormal value - zero in the begging of the number
+// %d Abnormal value - zero in the begging of the number
 }
 END_TEST
 
@@ -238,14 +238,79 @@ START_TEST(s21_sprintf_test11)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// TO REMOVE LATER FILLER TEST FOR %I
+// %i Maximum value of hexadecimal int
 }
 END_TEST
 
 START_TEST(s21_sprintf_test12)
 {
 #line 183
-    const int input_int = 6;
+    const int input_int = 0x7FFFFFFF;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Normal value of hexadecimal int
+}
+END_TEST
+
+START_TEST(s21_sprintf_test13)
+{
+#line 199
+    const int input_int = 0x723100;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// TODO: %i Minimum value of hexadecimal int
+
+// %i Maximum value of octal int
+}
+END_TEST
+
+START_TEST(s21_sprintf_test15)
+{
+#line 217
+    const int input_int = 017777777777;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Normal value of octal int
+}
+END_TEST
+
+START_TEST(s21_sprintf_test16)
+{
+#line 233
+    const int input_int = 034430377;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
     char s21_buffer[100];
@@ -281,6 +346,9 @@ int main(void)
     tcase_add_test(tc1_1, s21_sprintf_test10);
     tcase_add_test(tc1_1, s21_sprintf_test11);
     tcase_add_test(tc1_1, s21_sprintf_test12);
+    tcase_add_test(tc1_1, s21_sprintf_test13);
+    tcase_add_test(tc1_1, s21_sprintf_test15);
+    tcase_add_test(tc1_1, s21_sprintf_test16);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
