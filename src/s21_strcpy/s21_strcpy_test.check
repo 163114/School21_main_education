@@ -1,0 +1,122 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_strcpy_test1
+    const unsigned char *source = "Hello, I am your new coach. Surprised?";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+#test s21_strcpy_test2
+    const unsigned char *source = "Hello, I am your new coach. Surprised? Stunned?";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+#test s21_strcpy_test3
+    const unsigned char *source = "Hello, I am your new coach. Surprised? Stunned?";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+#test s21_strcpy_test4
+    const unsigned char *source = "";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+#test s21_strcpy_test5
+    const unsigned char *source = "Wow";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+#test s21_strcpy_test6
+    const unsigned char *source = "Wow";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+
+#test s21_strcpy_test7
+    const unsigned char *source = "Wo\0w";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+
+#test s21_strcpy_test8
+    const unsigned char *source = "";
+    
+    char s21_destination[100];
+    memset(s21_destination, 'a', 100);
+    char destination[100];
+    memset(destination, 'a', 100);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
+
+
+#test s21_strcpy_test9
+    const unsigned char *source = "";
+    
+    char s21_destination[1];
+    memset(s21_destination, 'a', 1);
+    char destination[1];
+    memset(destination, 'a', 1);
+    
+    s21_strcpy(s21_destination, source);
+    strcpy(destination, source);
+
+    ck_assert_str_eq(s21_destination, destination);
