@@ -128,3 +128,69 @@ void *s21_trim(const char *src, const char *trim_chars)
     }
     return str_;
 }
+
+
+
+
+
+int choose_return_type(char *buffer, int index, const char *format, va_list argp)
+{
+    char *pt = strtok(buffer, " "), cl = 'q';
+    for (int i = 1; i <= index; i++)
+        if (pt != NULL)
+            pt = strtok(NULL, " ");
+        // else error  specifires < date
+        else return 1; // error
+
+    if (*format == 'h' || *format == 'l' || *format == 'L')
+    {
+        cl = *format;
+        format++;
+        c = *format;
+    }
+    else if (*format == 'c')
+        *va_arg(argp, char*) = *pt;
+    else if (*format == 'd' || *format == 'i') {
+        if (cl == 'h') printf("ho");
+        else if (cl == 'l') printf("lo");
+        else printf("else o");
+    } else if (*format == 'e') {
+        if (cl == 'L') printf("e");
+        else printf("else e");
+    } else if (*format == 'E') {
+        if (cl == 'L') printf("E");
+        else printf("else E");
+    } else if (*format == 'f') {
+        if (cl == 'L') *(va_arg(argp, long double*)) = atof(pt);
+        else *(va_arg(argp, float*)) = atof(pt);
+    } else if (*format == 'g') {
+        if (cl == 'L') printf("g");
+        else printf("else g");
+    } else if (*format == 'G') {
+        if (cl == 'L') printf("G");
+        else printf("else G");
+    } else if (*format == 'o') {
+        if (cl == 'h') printf("ho");
+        else if (cl == 'l') printf("lo");
+        else printf("else o");
+    } else if (*format == 's')
+        strcpy(va_arg(argp, char*), pt);
+    else if (*format == 'u') {
+        if (cl == 'h') *va_arg(argp, short unsigned int*) = atof(pt);
+        else if (cl == 'l') *va_arg(argp, long unsigned int*) = atof(pt);
+        else *va_arg(argp, unsigned int*) = atof(pt);
+    } else if (*format == 'x') {
+        if (cl == 'h') printf("hx");
+        else if (cl == 'l') printf("lx");
+        else printf("else x");
+    } else if (*format == 'X') {
+        if (cl == 'h') printf("hX");
+        else if (cl == 'l') printf("lX");
+        else printf("else X");
+    } else if (*format == 'p')
+        printf("p"); // *va_arg(argp, void**) = (void *) *pt;
+    else if (*format == 'n')
+        printf("n");
+    else return 1;
+    return 0;
+}
