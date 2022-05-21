@@ -1,0 +1,71 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_strcspn_test1
+    const char *string = "Hey, yo, bitch!";
+    const char *symbols = " ,!";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test2
+    const char *string = "abcde312$#@";
+    const char *symbols = "qwertyuiopasdfghjklzxcvbnm";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test3
+    const char *string = "@abcde312$#@";
+    const char *symbols = "qwertyuiopasdfghjklzxcvbnm";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test4
+    const char *string = "aaabcdefghfdgdfgdg312$#@";
+    const char *symbols = "qwertyuiopasdfghjklzxcvbnm";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test5
+    const char *string = "aaabcdefghfdgdfgdg312$#@";
+    const char *symbols = "";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test6
+    const char *string = "";
+    const char *symbols = "qwertyuiopasdfghjklzxcvbnm";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test7
+    const char *string = "";
+    const char *symbols = "";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test8
+    const char *string = "Wow! This is amazing!!";
+    const char *symbols = "T!Wis ohw";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test9
+    const char *string = "Wow! This is amazing!!";
+    const char *symbols = "T!Wis ohwma";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
+
+
+#test s21_strcspn_test10
+    const char *string = "Wow! This is amazing!!";
+    const char *symbols = "T!Wis ohwmagz";
+
+    ck_assert_uint_eq(s21_strcspn(string, symbols), strcspn(string, symbols));
