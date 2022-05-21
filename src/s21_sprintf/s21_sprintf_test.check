@@ -210,7 +210,21 @@
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// TODO: %i Minimum value of hexadecimal int
+// %i Minimum value of hexadecimal int
+#test s21_sprintf_test14
+    const int input_int = -0x7FFFFFFF;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
 
 // %i Maximum value of octal int
 #test s21_sprintf_test15
@@ -244,10 +258,24 @@
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// TODO: %i Minimum value of octal int
+// %i Minimum value of octal int
+#test s21_sprintf_test17
+    const int input_int = -017777777777;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
 
 // %i Maximum int test
-#test s21_sprintf_test17
+#test s21_sprintf_test18
     const int input_int = 2147483647;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
@@ -263,7 +291,7 @@
     ck_assert_int_eq(s21_result, result);
 
 // %i Minimum int test
-#test s21_sprintf_test18
+#test s21_sprintf_test19
     const int input_int = -2147483647;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
@@ -279,7 +307,7 @@
     ck_assert_int_eq(s21_result, result);
 
 // %i Regular int test
-#test s21_sprintf_test19
+#test s21_sprintf_test20
     const int input_int = 7483647;
     const char *format = "%i%i%i Hello, World %i%i%i";
 

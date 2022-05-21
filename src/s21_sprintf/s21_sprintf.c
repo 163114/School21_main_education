@@ -106,9 +106,9 @@ void choose_return_type(char *buffer, const char *format, int *index, va_list ar
     if ('c' == *format) {
         c_specifier(buffer, index, argp);
     }
-    // Improved d_specifier function to work with %i too
+    // Improved d_i_specifier function to work with %i too
     if ('d' == *format || 'i' == *format) {
-        d_specifier(buffer, index, argp);
+        d_i_specifier(buffer, index, argp);
     }
 }
 
@@ -117,7 +117,7 @@ void c_specifier(char *buffer, int *index, va_list argp) {
     ++*index;
 }
 
-void d_specifier(char *buffer, int *index, va_list argp) {
+void d_i_specifier(char *buffer, int *index, va_list argp) {
     char array_for_int[12];
     int int_array_index = 0;
     s21_itoa(va_arg(argp, int), array_for_int, 10);
@@ -128,7 +128,7 @@ void d_specifier(char *buffer, int *index, va_list argp) {
     }
 }
 
-// !!! Redundant function below. I immproved d_specifier function to work with %i
+// !!! Redundant function below. I immproved d_i_specifier function to work with %i
 // void i_specifier(char *buffer, int *index, va_list argp) {
 //     char array_for_int[12];
 //     int int_array_index = 0;

@@ -280,7 +280,26 @@ START_TEST(s21_sprintf_test13)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// TODO: %i Minimum value of hexadecimal int
+// %i Minimum value of hexadecimal int
+}
+END_TEST
+
+START_TEST(s21_sprintf_test14)
+{
+#line 215
+    const int input_int = -0x7FFFFFFF;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
 
 // %i Maximum value of octal int
 }
@@ -288,7 +307,7 @@ END_TEST
 
 START_TEST(s21_sprintf_test15)
 {
-#line 217
+#line 231
     const int input_int = 017777777777;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
@@ -309,7 +328,7 @@ END_TEST
 
 START_TEST(s21_sprintf_test16)
 {
-#line 233
+#line 247
     const int input_int = 034430377;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
@@ -324,15 +343,34 @@ START_TEST(s21_sprintf_test16)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// TODO: %i Minimum value of octal int
-
-// %i Maximum int test
+// %i Minimum value of octal int
 }
 END_TEST
 
 START_TEST(s21_sprintf_test17)
 {
-#line 251
+#line 263
+    const int input_int = -017777777777;
+    const char *format = "%i%i%i Hello, World %i%i%i";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Maximum int test
+}
+END_TEST
+
+START_TEST(s21_sprintf_test18)
+{
+#line 279
     const int input_int = 2147483647;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
@@ -351,9 +389,9 @@ START_TEST(s21_sprintf_test17)
 }
 END_TEST
 
-START_TEST(s21_sprintf_test18)
+START_TEST(s21_sprintf_test19)
 {
-#line 267
+#line 295
     const int input_int = -2147483647;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
@@ -372,9 +410,9 @@ START_TEST(s21_sprintf_test18)
 }
 END_TEST
 
-START_TEST(s21_sprintf_test19)
+START_TEST(s21_sprintf_test20)
 {
-#line 283
+#line 311
     const int input_int = 7483647;
     const char *format = "%i%i%i Hello, World %i%i%i";
 
@@ -413,11 +451,13 @@ int main(void)
     tcase_add_test(tc1_1, s21_sprintf_test11);
     tcase_add_test(tc1_1, s21_sprintf_test12);
     tcase_add_test(tc1_1, s21_sprintf_test13);
+    tcase_add_test(tc1_1, s21_sprintf_test14);
     tcase_add_test(tc1_1, s21_sprintf_test15);
     tcase_add_test(tc1_1, s21_sprintf_test16);
     tcase_add_test(tc1_1, s21_sprintf_test17);
     tcase_add_test(tc1_1, s21_sprintf_test18);
     tcase_add_test(tc1_1, s21_sprintf_test19);
+    tcase_add_test(tc1_1, s21_sprintf_test20);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);

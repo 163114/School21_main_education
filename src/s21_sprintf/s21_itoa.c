@@ -27,8 +27,6 @@ char* s21_itoa(int number, char *buffer, int base) {
     }
     int num_digits = 0;
     if (number < 0) {
-        // I removed base check because in our case base in only one - 10
-        // We could bring it back if we need to work with other types of possbile base values - 2, 8, 16
         if (base == 10) { 
         ++num_digits;
         buffer[current] = '-';
@@ -36,7 +34,6 @@ char* s21_itoa(int number, char *buffer, int base) {
         number *= -1;
         } 
         // Used for the case when to the function is passed a non-valid radix argument
-        // Since in your case base in only one - 10, we don't need it
         else {
             return NULL;
         }
