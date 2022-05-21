@@ -12,8 +12,8 @@ int s21_sprintf(char *buffer, const char *format, ...);
 void choose_return_type(char *buffer, const char *format, int *index, va_list argp);
 void c_specifier(char *buffer, int *index, va_list argp);
 void d_specifier(char *buffer, int *index, va_list argp);
-void i_specifier(char *buffer, int *index, va_list argp);
-int flip_to_array(int number_to_flip, char *pointer_to_array);
+// void i_specifier(char *buffer, int *index, va_list argp); - Redundant. May need in the future. Going to save it for now just in case
+// int flip_to_array(int number_to_flip, char *pointer_to_array); - Redundant. May need in the future. Going to save it for now just in case
 
 // enum is_true{
 //     FALSE,
