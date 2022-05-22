@@ -25,7 +25,7 @@ What to return - number of characters written to buffer
             if the precision is explicitly zero, no decimal-point character appears. If a decimal point appears, at least one digit appears before it.
 
 +            1. Find the index of the dot
-+            2. Multiply the number by 10 to the power of 5 to get rid of the dot
++            2. Multiply the number by 10 to the power of 6 to get rid of the dot
 +            3. Write the result of the previous step to the array of chars and insert the dot at the specified index. Write to maximum to of 6 decimal places
             4. Fix the bug of values after the flag - unnecessary '\0' is add to the array
             5. Fix the max of range value bug
@@ -48,37 +48,37 @@ What to return - number of characters written to buffer
 
 #include "s21_sprintf.h"
 
-// !!! THE COMMENTED CODE IS FOR TROUBLESHOOTING. DELETE THAT LATER
-char* s21_itoa(int number, char *buffer, int base) {
-    int current = 0;
-    if (number == 0) {
-        buffer[current++] = '0';
-        buffer[current] = '\0';
-        return buffer;
-    }
-    int num_digits = 0;
-    if (number < 0) {
-        if (base == 10) {
-        ++num_digits;
-        buffer[current] = '-';
-        ++current;
-        number *= -1;
-    } else {
-        return NULL;
-        }
-    }
-    num_digits += (int)floor(log(number) / log(base)) + 1;
-    while (current < num_digits) {
-        int base_val = (int) pow(base, num_digits -1 -current);
-        int num_val = number / base_val;
-        char value = num_val + '0';
-        buffer[current] = value;
-        ++current;
-        number -= base_val * num_val;
-    }
-    buffer[current] = '\0';
-    return buffer;
-}
+// // !!! THE COMMENTED CODE IS FOR TROUBLESHOOTING. DELETE THAT LATER
+// char* s21_itoa(int number, char *buffer, int base) {
+//     int current = 0;
+//     if (number == 0) {
+//         buffer[current++] = '0';
+//         buffer[current] = '\0';
+//         return buffer;
+//     }
+//     int num_digits = 0;
+//     if (number < 0) {
+//         if (base == 10) {
+//         ++num_digits;
+//         buffer[current] = '-';
+//         ++current;
+//         number *= -1;
+//     } else {
+//         return NULL;
+//         }
+//     }
+//     num_digits += (int)floor(log(number) / log(base)) + 1;
+//     while (current < num_digits) {
+//         int base_val = (int) pow(base, num_digits -1 -current);
+//         int num_val = number / base_val;
+//         char value = num_val + '0';
+//         buffer[current] = value;
+//         ++current;
+//         number -= base_val * num_val;
+//     }
+//     buffer[current] = '\0';
+//     return buffer;
+// }
 
 // char *s21_memset_uchar(char *string, unsigned char symbol, s21_size_t size) {
 //     for (s21_size_t index = 0ul; index < size; ++index)
@@ -97,19 +97,20 @@ char* s21_itoa(int number, char *buffer, int base) {
 //     return result;
 // }
 
-int main() {
-    char buffer[100];
-    // char exclamation_point = '!';
-    // int number = 2147483647;
-    // char *buffer = NULL;
-    // s21_sprintf(buffer, "Hello world%c!%c\n", exclamation_point, exclamation_point);
-    // s21_sprintf(buffer, "%d Hello world %d ! %d\n", number, number, number);
-    // double double_value = 112345.789;
-    double max = 214748364700.000000;
-    s21_sprintf(buffer, "Hello world! %f", max);
-    puts(buffer);
-    return 0;
-}
+// int main() {
+//     char buffer[100];
+//     // char exclamation_point = '!';
+//     // int number = 2147483647;
+//     // char *buffer = NULL;
+//     // s21_sprintf(buffer, "Hello world%c!%c\n", exclamation_point, exclamation_point);
+//     // s21_sprintf(buffer, "%d Hello world %d ! %d\n", number, number, number);
+//     // double double_value = 112345.789;
+//     double max = 340282346638528859811704183484516925440.000000;
+//     s21_sprintf(buffer, "Hello world! %f", max);
+//     puts(buffer);
+
+//     return 0;
+// }
 
 int s21_sprintf(char *buffer, const char *format, ...) {
     // assert(buffer && "BUFFER SHOULD NOT BE NULL!!!!");
@@ -205,7 +206,7 @@ int find_dot_index(double number) {
 }
 
 void double_to_array_of_chars(char *pointer_array_for_double, double temp_arpg_variable) {
-    long long int double_without_floating_point = temp_arpg_variable * pow(10, 5);
+    long long int double_without_floating_point = temp_arpg_variable * pow(10, 6);
     int index = 0, flip_index = 0;
     char temp_array_for_double[49] = {'\0'};
     // Write each number to the temp array. I'll need to flip temp later

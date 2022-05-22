@@ -426,7 +426,90 @@ START_TEST(s21_sprintf_test20)
     
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - all 6 decimal places
+}
+END_TEST
+
+START_TEST(s21_sprintf_test21)
+{
+#line 327
+    const double input_int = 748364.123456;
+    const char *format = " Hello, World %f";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int);
     
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - 3 decimal places
+}
+END_TEST
+
+START_TEST(s21_sprintf_test22)
+{
+#line 343
+    const double input_int = 748364.123;
+    const char *format = " Hello, World %f";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - 0 decimal places
+}
+END_TEST
+
+START_TEST(s21_sprintf_test23)
+{
+#line 359
+    const double input_int = 748364;
+    const char *format = " Hello, World %f";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int);
+    const int result = sprintf(buffer, format, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - multiple values in the begging and at the end of the string
+}
+END_TEST
+
+START_TEST(s21_sprintf_test24)
+{
+#line 375
+    const double input_int = 748364.123;
+    const char *format = "test %f %f %f Hello, World %f %f %f test";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
 }
 END_TEST
 
@@ -458,6 +541,10 @@ int main(void)
     tcase_add_test(tc1_1, s21_sprintf_test18);
     tcase_add_test(tc1_1, s21_sprintf_test19);
     tcase_add_test(tc1_1, s21_sprintf_test20);
+    tcase_add_test(tc1_1, s21_sprintf_test21);
+    tcase_add_test(tc1_1, s21_sprintf_test22);
+    tcase_add_test(tc1_1, s21_sprintf_test23);
+    tcase_add_test(tc1_1, s21_sprintf_test24);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);

@@ -321,4 +321,67 @@
     
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - all 6 decimal places
+#test s21_sprintf_test21
+    const double input_int = 748364.123456;
+    const char *format = " Hello, World %f";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int);
     
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - 3 decimal places
+#test s21_sprintf_test22
+    const double input_int = 748364.123;
+    const char *format = " Hello, World %f";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - 0 decimal places
+#test s21_sprintf_test23
+    const double input_int = 748364;
+    const char *format = " Hello, World %f";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int);
+    const int result = sprintf(buffer, format, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %f Regular double test - multiple values in the begging and at the end of the string
+#test s21_sprintf_test24
+    const double input_int = 748364.123;
+    const char *format = "test %f %f %f Hello, World %f %f %f test";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
