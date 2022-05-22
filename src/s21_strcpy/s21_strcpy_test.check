@@ -120,3 +120,5 @@
     strcpy(destination, source);
 
     ck_assert_str_eq(s21_destination, destination);
+
+

@@ -12,4 +12,3 @@
 #test s21_strlen_test3
     const char *input = "Hey\0 yo";    
     ck_assert_uint_eq(s21_strlen(input), strlen(input));
-

@@ -4,7 +4,9 @@ CFLAGS=-std=c11 -c
 CFLAGS_GCOV=-fprofile-arcs -ftest-coverage
 LIBS=-lcheck -lgcov
 
-SOURCE_DIRECTORIES=
+SOURCE_DIRECTORIES=../s21_strlen
+
+
 OBJECT_DIRECTORIES_TO_CLEAN=$(subst ../,,$(filter ../%, $(SOURCE_DIRECTORIES)))
 OBJECT_DIRECTORIES_TO_CLEAN+=s21_common
 
@@ -41,7 +43,8 @@ test: $(TARGET_TEST)
 rerun_test: clean run_test
 
 gcov_report: run_test
-		gcovr -r . --html --html-details -o coverage_report.html
+		$(foreach directory,$(SOURCE_DIRECTORIES),gcovr $(subst ../,,$(directory)) -r $(directory) --html-details -o coverage_report.html ;)
+		gcovr . --html --html-details -o coverage_report.html
 
 leaks: run_test
 		leaks -atExit -- $(TARGET_TEST)
@@ -54,7 +57,7 @@ $(TEST_FILE_GENERATED): $(TEST_FILE)
 
 
 $(TARGET_TEST): $(OBJECT_FILES_IN_BUILD_DIRECTORIES) $(OBJECT_TEST_FILE_GENERATED)
-		$(CC) -o $@ $^ $(LIBS)
+		$(CC) -o $@ $^ $(LIBS) $(CFLAGS_GCOV)
 
 
 $(OBJECT_TEST_FILE_GENERATED): $(TEST_FILE_GENERATED) $(DEPENDENCY_FILE_TEST_FILE_GENERATED_IN_DEPENDENCY_DIRECTORY) | $(DEPENDENCY_DIRECTORY)
@@ -81,7 +84,7 @@ clean:
 
 
 print:
-		#echo $(OBJECT_DIRECTORIES_TO_CLEAN)
+		$(patsubst ../,,$(directory))
 		
 
 include $(wildcard $(DEPENDENCY_FILES_ALL_IN_DEPENDENCY_DIRECTORIES))

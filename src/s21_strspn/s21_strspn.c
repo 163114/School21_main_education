@@ -5,5 +5,5 @@
 #include "../s21_common/s21_is_found/s21_is_found.h"
 
 s21_size_t s21_strspn(const char *string, const char *symbols) {
-    return __s21_filter_from_beginning(string, symbols, is_found);
+    return __s21_filter_from_beginning(string, symbols, __is_found);
 }

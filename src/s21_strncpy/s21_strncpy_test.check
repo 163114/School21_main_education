@@ -267,3 +267,4 @@
 
     ck_assert_str_eq(s21_destination, destination);
 //    ck_assert_mem_eq(s21_destination, destination, size);
+

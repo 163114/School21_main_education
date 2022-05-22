@@ -30,3 +30,4 @@
     const char *string = "UUURRRGGGGGHHHH DAAAAAA FUUUUUUCK!!!!!";
     const char symbol = 'F';
     ck_assert_ptr_eq(s21_strrchr(string, symbol), strrchr(string, symbol));
+

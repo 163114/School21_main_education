@@ -3,6 +3,6 @@
 
 #include "../s21_string_types.h"
 
-void *s21_memcpy(void *destination, const void *source, size_t size);
+void *s21_memcpy(void *destination, const void *source, s21_size_t size);
 
 #endif  //  SRC_S21_MEMCPY_S21_MEMCPY_H

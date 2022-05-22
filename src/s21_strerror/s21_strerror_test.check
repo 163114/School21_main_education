@@ -93,6 +93,3 @@
     ck_assert_pstr_eq(s21_strerror(-1489), strerror(-1489));
 #test s21_strerror_test43
     ck_assert_pstr_eq(s21_strerror(12345678), strerror(12345678));
-
-
-

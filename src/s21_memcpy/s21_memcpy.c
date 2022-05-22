@@ -1,5 +1,5 @@
 #include "s21_memcpy.h"
-#include "../s21_common/s21_memcpy_forward_backward.h"
+#include "../s21_common/s21_memcpy_forward_backward/s21_memcpy_forward_backward.h"
 
 void *s21_memcpy(void *destination, const void *source, s21_size_t size) {
     unsigned char *destination_uchar = (unsigned char*)destination;

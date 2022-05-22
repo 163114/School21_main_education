@@ -3,7 +3,7 @@
 #include "../s21_strlen/s21_strlen.h"
 
 static int __is_delimiter(const char* delimiters, char symbol, s21_size_t length) {
-    return is_found((const unsigned char *)delimiters, symbol, length);
+    return __is_found((const unsigned char *)delimiters, symbol, length);
 }
 
 char *s21_strtok(char *string, const char *delimiters) {
@@ -33,7 +33,7 @@ char *s21_strtok(char *string, const char *delimiters) {
             
             if (length_token > 0ul) {
                 result_token = string_to_remember + start_index;
-
+                
                 start_index = index;
                 go_on = 0;
                 length_token = 0ul;

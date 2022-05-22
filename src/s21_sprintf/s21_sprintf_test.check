@@ -79,3 +79,20 @@
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
+
+#test s21_sprintf_test6
+    const char input1 = '!';
+    const double input2 = 13.87;
+    const char *format = "Hello, %lf, World%c!%c%c";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input2, input1, input1, input1);
+    const int result = sprintf(buffer, format, input2, input1, input1, input1);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+

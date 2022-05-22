@@ -208,3 +208,4 @@
     memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+

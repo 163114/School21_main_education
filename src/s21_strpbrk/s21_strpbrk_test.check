@@ -85,3 +85,4 @@
     const char *symbols = "cocksucker";
 
     ck_assert_str_eq(s21_strpbrk(string, symbols), strpbrk(string, symbols));
+

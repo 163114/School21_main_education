@@ -1,8 +1,6 @@
 #include "s21_strstr.h"
 #include "../s21_strlen/s21_strlen.h"
 
-#include <assert.h>
-
 static int are_strings_equal(const char *string1, const char* string2, s21_size_t length) {
     for (s21_size_t index = 0ul; index < length; ++index)
         if (string1[index] != string2[index])

@@ -79,3 +79,4 @@
     // ck_assert_str_eq(null, null) returns failed test
     // that's why ck_assert_ptr_eq instead of ck_assert_str_eq
     ck_assert_ptr_eq(s21_strstr(string, substring), strstr(string, substring));
+
