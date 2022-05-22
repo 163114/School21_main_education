@@ -18,22 +18,18 @@ What to return - number of characters written to buffer
 +            %i takes integer value as integer value with decimal, hexadecimal or octal type.
 +            To enter a value in hexadecimal format – value should be provided by preceding “0x” and value in octal format – value should be provided by preceding “0”.
         f, 
-            Find out what %f does:
-            %f converts floating-point number to the decimal notation in the style [-]ddd.ddd.
++            Find out what %f does:
++            %f converts floating-point number to the decimal notation in the style [-]ddd.ddd.
             Value range of %f: -340282346638528859811704183484516925440.000000 to 340282346638528859811704183484516925440.000000, precision - 6 decimal places
-            If value is bigger or less than the range, then "inf" or "-inf" is displayed
             Precision specifies the exact number of digits to appear after the decimal point character. The default precision is 6.
             if the precision is explicitly zero, no decimal-point character appears. If a decimal point appears, at least one digit appears before it.
-            To implement %f I need to divide the double value of vararg by to 10 to the power of the number of digits. Ex: 
-            012345.789
-            10 to the power of -6 (6 numbers before the point and 6 after)
-            !!! if (double varg % pow(10, -1) != 0) - condition for floating point numbers
-            Or I can print out the numbers and at specific point print out the dot. For that I would need to store the index of the number with a whle case "while (remainder > 0)". If false, then I remember the index
 
-            1. Write a function to find the lenght of the double number - Probably not going to do that 
-+            2. Find the index of the dot
-            3. Multiply the number by 10 to the power of 5 to get rid of the dot
-            4. Write the result of the previous step to the array of chars and insert the dot at the specified index. Write to maximum to of 6 decimal places
++            1. Find the index of the dot
++            2. Multiply the number by 10 to the power of 5 to get rid of the dot
++            3. Write the result of the previous step to the array of chars and insert the dot at the specified index. Write to maximum to of 6 decimal places
+            4. Fix the bug of values after the flag - unnecessary '\0' is add to the array
+            5. Fix the max of range value bug
+            6. Think about the precision specificators
         s, 
         u, 
 +        %
@@ -108,8 +104,9 @@ int main() {
     // char *buffer = NULL;
     // s21_sprintf(buffer, "Hello world%c!%c\n", exclamation_point, exclamation_point);
     // s21_sprintf(buffer, "%d Hello world %d ! %d\n", number, number, number);
-    double double_value = 112345.789;
-    s21_sprintf(buffer, "Hello world! %f", double_value);
+    // double double_value = 112345.789;
+    double max = 214748364700.000000;
+    s21_sprintf(buffer, "Hello world! %f", max);
     puts(buffer);
     return 0;
 }
@@ -170,15 +167,16 @@ void d_i_specifier(char *buffer, int *index, va_list argp) {
 
 void f_specifier(char *buffer, int *index, va_list argp) {
     char array_for_double[49] = {'\0'};
+    char *pointer_array_for_double = array_for_double;
     // Ask Misha what's wrong here - didn't build the file with the s21_memset library + Misha didn't compile the file with gcc flags. Going to use '\0' for now
     // s21_memset(array_for_double, 0, 49);
     const double temp_arpg_variable = va_arg(argp, double);
     int dot_index = find_dot_index(temp_arpg_variable);
-    // printf("%d", dot_index);
     // Write to the buffer the array_for_double. When you meet dot_index, insert dot char and continue to write chars until 6 decimal places of precision
     int array_for_double_index = 0;
+    double_to_array_of_chars(pointer_array_for_double, temp_arpg_variable);
     // Append to the buffer the values before the dot. Ex: 12345.
-    while (array_for_double_index != dot_index - 1) {
+    while (array_for_double_index != dot_index) {
         buffer[*index] = array_for_double[array_for_double_index];
         ++array_for_double_index;
         ++*index;
@@ -212,12 +210,12 @@ void double_to_array_of_chars(char *pointer_array_for_double, double temp_arpg_v
     char temp_array_for_double[49] = {'\0'};
     // Write each number to the temp array. I'll need to flip temp later
     while (double_without_floating_point > 0) {
-        temp_array_for_double[index] = double_without_floating_point % 10;
+        temp_array_for_double[index] = (char)((double_without_floating_point % 10) + 48);
         double_without_floating_point /= 10;
         ++index;
     }
     // For loop to flip the temp array
-    for (int i = index; i <= 0; --i) {
+    for (int i = index - 1; i >= 0; --i) {
         pointer_array_for_double[flip_index] = temp_array_for_double[i];
         ++flip_index;
     }
