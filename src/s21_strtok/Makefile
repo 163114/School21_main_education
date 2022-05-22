@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra -std=c11 -c
-CFLAGS=-std=c11 -c
+//CFLAGS=-std=c11 -c
 CFLAGS_GCOV=-fprofile-arcs -ftest-coverage
 LIBS=-lcheck -lgcov
 
