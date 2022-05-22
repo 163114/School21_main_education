@@ -25,14 +25,15 @@ What to return - number of characters written to buffer
             Precision specifies the exact number of digits to appear after the decimal point character. The default precision is 6.
             if the precision is explicitly zero, no decimal-point character appears. If a decimal point appears, at least one digit appears before it.
             To implement %f I need to divide the double value of vararg by to 10 to the power of the number of digits. Ex: 
-            12345.12345
+            012345.789
             10 to the power of -6 (6 numbers before the point and 6 after)
             !!! if (double varg % pow(10, -1) != 0) - condition for floating point numbers
             Or I can print out the numbers and at specific point print out the dot. For that I would need to store the index of the number with a whle case "while (remainder > 0)". If false, then I remember the index
 
-            1. Write a function to find the lenght of the double number
-            2. Find the index of the dot
-            3. Think about the 
+            1. Write a function to find the lenght of the double number - Probably not going to do that 
++            2. Find the index of the dot
+            3. Multiply the number by 10 to the power of 5 to get rid of the dot
+            4. Write the result of the previous step to the array of chars and insert the dot at the specified index. Write to maximum to of 6 decimal places
         s, 
         u, 
 +        %
@@ -46,53 +47,72 @@ What to return - number of characters written to buffer
 3. Memory test
 4. Test
 5. Cpplint test
-6. Implement the function in the s21_string.h library
+6. Add and push
 */
 
 #include "s21_sprintf.h"
 
 // !!! THE COMMENTED CODE IS FOR TROUBLESHOOTING. DELETE THAT LATER
-// char* s21_itoa(int number, char *buffer, int base) {
-//     int current = 0;
-//     if (number == 0) {
-//         buffer[current++] = '0';
-//         buffer[current] = '\0';
-//         return buffer;
-//     }
-//     int num_digits = 0;
-//     if (number < 0) {
-//         if (base == 10) {
-//         ++num_digits;
-//         buffer[current] = '-';
-//         ++current;
-//         number *= -1;
-//     } else {
-//         return NULL;
-//         }
-//     }
-//     num_digits += (int)floor(log(number) / log(base)) + 1;
-//     while (current < num_digits) {
-//         int base_val = (int) pow(base, num_digits -1 -current);
-//         int num_val = number / base_val;
-//         char value = num_val + '0';
-//         buffer[current] = value;
-//         ++current;
-//         number -= base_val * num_val;
-//     }
-//     buffer[current] = '\0';
-//     return buffer;
+char* s21_itoa(int number, char *buffer, int base) {
+    int current = 0;
+    if (number == 0) {
+        buffer[current++] = '0';
+        buffer[current] = '\0';
+        return buffer;
+    }
+    int num_digits = 0;
+    if (number < 0) {
+        if (base == 10) {
+        ++num_digits;
+        buffer[current] = '-';
+        ++current;
+        number *= -1;
+    } else {
+        return NULL;
+        }
+    }
+    num_digits += (int)floor(log(number) / log(base)) + 1;
+    while (current < num_digits) {
+        int base_val = (int) pow(base, num_digits -1 -current);
+        int num_val = number / base_val;
+        char value = num_val + '0';
+        buffer[current] = value;
+        ++current;
+        number -= base_val * num_val;
+    }
+    buffer[current] = '\0';
+    return buffer;
+}
+
+// char *s21_memset_uchar(char *string, unsigned char symbol, s21_size_t size) {
+//     for (s21_size_t index = 0ul; index < size; ++index)
+//         string[index] = symbol;
+ 
+//     return string;
+
 // }
 
-// int main() {
-//     // char buffer[100];
-//     // char exclamation_point = '!';
-//     int number = 2147483647;
-//     char *buffer = NULL;
-//     // s21_sprintf(buffer, "Hello world%c!%c\n", exclamation_point, exclamation_point);
-//     s21_sprintf(buffer, "%d Hello world %d ! %d\n", number, number, number);
-//     // puts(buffer);
-//     return 0;
+
+// void *s21_memset(void *string, int symbol, s21_size_t size) {
+//     unsigned char *string_uchar = (unsigned char*)string;
+//     unsigned char symbol_uchar = (unsigned char)symbol;
+
+//     char * result = s21_memset_uchar(string_uchar, symbol_uchar, size);
+//     return result;
 // }
+
+int main() {
+    char buffer[100];
+    // char exclamation_point = '!';
+    // int number = 2147483647;
+    // char *buffer = NULL;
+    // s21_sprintf(buffer, "Hello world%c!%c\n", exclamation_point, exclamation_point);
+    // s21_sprintf(buffer, "%d Hello world %d ! %d\n", number, number, number);
+    double double_value = 112345.789;
+    s21_sprintf(buffer, "Hello world! %f", double_value);
+    puts(buffer);
+    return 0;
+}
 
 int s21_sprintf(char *buffer, const char *format, ...) {
     // assert(buffer && "BUFFER SHOULD NOT BE NULL!!!!");
@@ -124,7 +144,6 @@ void choose_return_type(char *buffer, const char *format, int *index, va_list ar
     if ('c' == *format) {
         c_specifier(buffer, index, argp);
     }
-    // Improved d_i_specifier function to work with %i too
     if ('d' == *format || 'i' == *format) {
         d_i_specifier(buffer, index, argp);
     }
@@ -149,58 +168,58 @@ void d_i_specifier(char *buffer, int *index, va_list argp) {
     }
 }
 
-// !!! Redundant function below. I immproved d_i_specifier function to work with %i
-// void i_specifier(char *buffer, int *index, va_list argp) {
-//     char array_for_int[12];
-//     int int_array_index = 0;
-//     // Use const variable that is equal to va_arg(argp, int). I need to check the cases in the notebook and then use that const value to pass to itoa with a needed base
-//     const int va_arg_const = va_arg(argp, int); 
-//     // int size_of_array = 0;
-//     char flipped_array[12];
-//     char *pointer_to_flipped_array = flipped_array;
-//     flip_to_array(va_arg_const, pointer_to_flipped_array);
-//     d_specifier(buffer, index, flipped_array);
-//     // s21_itoa(va_arg_const, array_for_int, 10);
-//     // while (array_for_int[int_array_index] != '\0') {
-//     //     buffer[*index] = array_for_int[int_array_index];
-//     //     ++int_array_index;
-//     //     ++*index;
-//     // }
-// }
-
 void f_specifier(char *buffer, int *index, va_list argp) {
-    char array_for_float[48];
-    int float_array_index = 0;
-    s21_itoa(va_arg(argp, double), array_for_float, 10);
-    while (array_for_float[float_array_index] != '\0') {
-        buffer[*index] = array_for_float[float_array_index];
-        ++float_array_index;
+    char array_for_double[49] = {'\0'};
+    // Ask Misha what's wrong here - didn't build the file with the s21_memset library + Misha didn't compile the file with gcc flags. Going to use '\0' for now
+    // s21_memset(array_for_double, 0, 49);
+    const double temp_arpg_variable = va_arg(argp, double);
+    int dot_index = find_dot_index(temp_arpg_variable);
+    // printf("%d", dot_index);
+    // Write to the buffer the array_for_double. When you meet dot_index, insert dot char and continue to write chars until 6 decimal places of precision
+    int array_for_double_index = 0;
+    // Append to the buffer the values before the dot. Ex: 12345.
+    while (array_for_double_index != dot_index - 1) {
+        buffer[*index] = array_for_double[array_for_double_index];
+        ++array_for_double_index;
+        ++*index;
+    }
+    // Append dot to the buffer
+    char dot = '.';
+    buffer[*index] = dot;
+    ++*index;
+    // Append to the buffer the values after the dot. Maximum precision is 6. Ex: .123456
+    int max_amount_of_precision = 6;
+    for (int i = 0; i < max_amount_of_precision; ++i) {
+        buffer[*index] = array_for_double[array_for_double_index];
+        ++array_for_double_index;
         ++*index;
     }
 }
 
-// // 1. Flip the va_arg_const. I need to do this so I could access '0x'-like values in the begging of the va_arg number
-// // 2. Implement choose_base function after I flip the va_arg_const to an array of chars
-// // Here I should choose the base on itoa based on the last chars of the flipped array of chars
-// // int choose_base(int va_arg_const, ) {
-// //     int base = 10;
+int find_dot_index(double number) {
+    int index = 0;
+    double remainder = number;
+    while (remainder >= 1) {
+        remainder /= 10;
+        ++index;
+    }
+    return index;
+}
 
-// //     return base;
-// // }
+void double_to_array_of_chars(char *pointer_array_for_double, double temp_arpg_variable) {
+    long long int double_without_floating_point = temp_arpg_variable * pow(10, 5);
+    int index = 0, flip_index = 0;
+    char temp_array_for_double[49] = {'\0'};
+    // Write each number to the temp array. I'll need to flip temp later
+    while (double_without_floating_point > 0) {
+        temp_array_for_double[index] = double_without_floating_point % 10;
+        double_without_floating_point /= 10;
+        ++index;
+    }
+    // For loop to flip the temp array
+    for (int i = index; i <= 0; --i) {
+        pointer_array_for_double[flip_index] = temp_array_for_double[i];
+        ++flip_index;
+    }
+}
 
-// int flip_to_array(int number_to_flip, char *pointer_to_array) {
-//     int temp_num = number_to_flip, temp_single_num = 0, index = 0;
-//     while (temp_num > 0) {
-//         temp_single_num = temp_num % 10;
-//         if (index == 0) {
-//             pointer_to_array[index] = (char)temp_single_num;
-//             temp_num /= 10;
-//             index += 1;
-//         } else {
-//             pointer_to_array[index] = (char)temp_single_num;
-//             temp_num /= 10;
-//             index += 1;
-//         }
-//     }
-//     return index;
-// }
