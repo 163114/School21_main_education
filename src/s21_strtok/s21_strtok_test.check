@@ -2,8 +2,8 @@
 #include "../s21_string.h"
 
 #test s21_strtok_test1
-    char string[] = "  UUUUUURRGH DAAAAAA FUUUUUUUUCK!!!!";
-    char s21_string[] = "  UUUUUURRGH DAAAAAA FUUUUUUUUCK!!!!";
+    char string[] = "URGH DA FUCK!";
+    char s21_string[] = "URGH DA FUCK!";
     const char *delimiters = " ";
 
     const size_t size = strlen(string);
@@ -24,8 +24,63 @@
 
 
 #test s21_strtok_test2
-    char string[] = "UUUUUURRGH  DAAAAAA   FUUUUUUUUCK!!!!";
-    char s21_string[] = "UUUUUURRGH  DAAAAAA   FUUUUUUUUCK!!!!";
+    char string[] = "   Hey, yo, hey";
+    char s21_string[] = "   Hey, yo, hey";
+    const char *delimiters = ", ";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+    /*
+    printf("Contents of the input string now: '");
+    for(size_t n = 0; n < size + 1; ++n)
+        string[n] ? putchar(string[n]) : fputs("\\0", stdout);
+    puts("'");
+    printf("Contents of the input string now: '");
+    for(size_t n = 0; n < size + 1; ++n)
+        s21_string[n] ? putchar(s21_string[n]) : fputs("\\0", stdout);
+    puts("'");
+    */
+    ck_assert_mem_eq(s21_string, string, size);
+   
+
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test3
+    char string[] = "  URGH DA FUCK!";
+    char s21_string[] = "  URGH DA FUCK!";
+    const char *delimiters = " ";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    //ck_assert_mem_eq(s21_string, string, size);
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test4
+    char string[] = "URGH DA FUCK!";
+    char s21_string[] = "URGH DA FUCK!";
     const char *delimiters = " ";
 
     const size_t size = strlen(string);
@@ -45,7 +100,7 @@
     ck_assert_pstr_eq(s21_token, token);
 
 
-#test s21_strtok_test3
+#test s21_strtok_test5
     char string[] = "Hey,yo,bitch,wow";
     char s21_string[] = "Hey,yo,bitch,wow";
     const char *delimiters = ",";
@@ -67,7 +122,7 @@
     ck_assert_pstr_eq(s21_token, token);
 
 
-#test s21_strtok_test4
+#test s21_strtok_test6
     char string[] = "HEEEEY, Hey, yo, bitch";
     char s21_string[] = "HEEEEY, Hey, yo, bitch";
     const char *delimiters = ", ";
@@ -89,7 +144,7 @@
     ck_assert_pstr_eq(s21_token, token);
 
 
-#test s21_strtok_test5
+#test s21_strtok_test7
     char string[] = "On the streets, please, drive safely and responsibly! You should care!";
     char s21_string[] = "On the streets, please, drive safely and responsibly! You should care!";
     const char *delimiters = ",! ";

@@ -1,74 +1,63 @@
 #include "s21_strtok.h"
 #include "../s21_common/s21_is_found/s21_is_found.h"
 #include "../s21_strlen/s21_strlen.h"
-/*
-char *s21_strtok(char *string, const char *delimiters) {
-    static char *string_to_remember = s21_NULL;
-    static s21_size_t size_string_to_remember = 0ul;
-    static s21_size_t index = 0ul;
 
-    if (string) {
-        string_to_remember = string;
-        size_string_to_remember = s21_strlen(string_to_remember);
-        index = 0ul;
-    }   
-    //  0 1 2 3 4 5 6 7 8 9 1011
-    // "H e y   y o   b i t c h"
-
-    const s21_size_t size_delimiters = s21_strlen(delimiters); 
-    const s21_size_t start_index = index;
-
-    printf("start: %zu\n", start_index); //
-    while (is_not_found(delimiters, string_to_remember[index], size_delimiters) && index < size_string_to_remember) {
-        ++index;
-    }
-
-    string_to_remember[index] = '\0';
-    ++index;
-
-    printf("%s\n", string_to_remember + start_index); //
-    printf("index: %zu\n", index); //
-    return string_to_remember + start_index;
+static int is_delimiter(const unsigned char* delimiters, unsigned char symbol, s21_size_t length) {
+    return is_found(delimiters, symbol, length);
 }
-*/
 
 char *s21_strtok(char *string, const char *delimiters) {
     static char *string_to_remember = s21_NULL;
-    static s21_size_t size_string_to_remember = 0ul;
+    static s21_size_t length_string = 0ul;
     static s21_size_t index = 0ul;
-    static s21_size_t start_index = 0ul;
 
     if (string) {
+        // printf("new string\n");
         string_to_remember = string;
-        size_string_to_remember = s21_strlen(string_to_remember);
+        length_string = s21_strlen(string);
         index = 0ul;
-        start_index = 0ul;
-        printf("length: %zu\n", size_string_to_remember); //
-    }   
-    if (index == size_string_to_remember)
-        return s21_NULL;
-    //  0 1 2 3 4 5 6 7 8 9 1011
-    // "H e y   y o   b i t c h"
-
-    const s21_size_t size_delimiters = s21_strlen(delimiters); 
-
-    if (is_not_found(delimiters, string_to_remember[index], size_delimiters))
-        start_index = index;
-
-    printf("start: %zu\n", start_index); //
-    while (is_not_found(delimiters, string_to_remember[index], size_delimiters) && index < size_string_to_remember) {
-        ++index;
-    }
-    
-    if (index < size_string_to_remember) {
-        string_to_remember[index] = '\0';
-        ++index;
     }
 
+    const s21_size_t length_delimiters = s21_strlen(delimiters);
+    s21_size_t length_token = 0ul;
+    s21_size_t start_index = index;
 
-    printf("%s\n", string_to_remember + start_index); //
-    printf("index: %zu\n", index); //
+//     012345678901234
+//    "URGH DA FUCK!"
+    int is_previous_delimiter = 1;
+    char *result_token = s21_NULL;
+    int go_on = 1;
+    while (index < length_string && go_on) {
+        if (is_delimiter(delimiters, string_to_remember[index], length_delimiters)) {
+            
+            if (!is_previous_delimiter)
+                string_to_remember[index] = '\0';
+            is_previous_delimiter = 1;
+            ++index; //
 
+            
+            if (length_token > 0ul) {
+                const s21_size_t old_start_index = start_index;
+                start_index = index - 1;
+                
+                //printf("index-1 = %zu\told_start_index = %zu\tlength_token = %zu\n", index-1, old_start_index, length_token);
+                length_token = 0ul;
+                result_token = string_to_remember + old_start_index;
+                go_on = 0;
+            }
+        } else {
+            ++index; // 
+            ++length_token;
+            if (is_previous_delimiter)
+                start_index = index - 1;
+            is_previous_delimiter = 0;
+        }
+    }
 
-    return string_to_remember + start_index;
+    if (length_token > 0ul) {
+        //printf("index-1 = %zu\tstart_index\t= %zu\tlength_token = %zu\n", index-1, start_index, length_token);
+        result_token = string_to_remember + start_index;
+    }
+
+    return result_token;
 }
