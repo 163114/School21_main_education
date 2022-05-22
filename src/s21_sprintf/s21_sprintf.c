@@ -211,7 +211,7 @@ void double_to_array_of_chars(char *pointer_array_for_double, double temp_arpg_v
     char temp_array_for_double[49] = {'\0'};
     // Write each number to the temp array. I'll need to flip temp later
     while (double_without_floating_point > 0) {
-        temp_array_for_double[index] = (char)((double_without_floating_point % 10) + 48);
+        temp_array_for_double[index] = (char)((double_without_floating_point % 10) + 48); // REPLACE 48 WITH '0'
         double_without_floating_point /= 10;
         ++index;
     }
