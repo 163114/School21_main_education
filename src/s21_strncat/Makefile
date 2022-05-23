@@ -1,26 +1,19 @@
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra -std=c11 -c
-//CFLAGS=-std=c11 -c
+CFLAGS=-std=c11 -c
 CFLAGS_GCOV=-fprofile-arcs -ftest-coverage
 LIBS=-lcheck -lgcov
 
-SOURCE_DIRECTORIES=s21_common/s21_is_found s21_common/s21_memcpy_forward_backward s21_common/s21_filter_from_beginning s21_memchr s21_memcmp s21_memcpy s21_memmove s21_memset s21_strcat s21_strchr s21_strcmp s21_strcpy s21_strcspn s21_strerror s21_strlen s21_strncat s21_strncmp s21_strncpy s21_strpbrk s21_strrchr s21_strspn s21_strstr s21_strtok
+SOURCE_DIRECTORIES=../s21_strlen
 
 
 OBJECT_DIRECTORIES_TO_CLEAN=$(subst ../,,$(filter ../%, $(SOURCE_DIRECTORIES)))
-
+OBJECT_DIRECTORIES_TO_CLEAN+=s21_common
 
 BUILD_DIRECTORY=build
 DEPENDENCY_DIRECTORY=$(BUILD_DIRECTORY)/dependencies
 
-
-ALL_TESTS_IN_ONE_FILE=$(BUILD_DIRECTORY)/s21_string_test.check
-ALL_TESTS_IN_ONE_FILE_GENERATED=$(BUILD_DIRECTORY)/s21_string_test.c
-#SOURCE_FILES_TESTS=$(foreach directory_as_variable, $(SOURCE_DIRECTORIES),$(wildcard $(directory_as_variable)/*.check))
-TEST_FILES=$(foreach directory_as_variable, $(SOURCE_DIRECTORIES),$(wildcard $(directory_as_variable)/*.check))
-
-
-TEST_FILE=$(ALL_TESTS_IN_ONE_FILE)
+TEST_FILE=$(wildcard *.check)
 TEST_FILE_GENERATED=$(patsubst %.check,%.c,$(TEST_FILE))
 OBJECT_TEST_FILE_GENERATED=$(BUILD_DIRECTORY)/$(notdir $(patsubst %.c,%.o,$(TEST_FILE_GENERATED)))
 TARGET_TEST=$(BUILD_DIRECTORY)/$(notdir $(patsubst %.o,%.out,$(OBJECT_TEST_FILE_GENERATED)))
@@ -48,17 +41,6 @@ run_test: test
 test: $(TARGET_TEST)
 
 rerun_test: clean run_test
-
-
-generate_all_tests: $(ALL_TESTS_IN_ONE_FILE_GENERATED)
-
-
-$(ALL_TESTS_IN_ONE_FILE): $(TEST_FILES)
-		mkdir -p $(dir $@)
-		touch $(notdir $@)
-		cat $^ >> $@
-		echo "" >> $@
-
 
 gcov_report: run_test
 		$(foreach directory,$(SOURCE_DIRECTORIES),gcovr $(subst ../,,$(directory)) -r $(directory) --html-details -o coverage_report.html ;)
@@ -102,7 +84,7 @@ clean:
 
 
 print:
-		echo $(TEST_FILES)
+		$(patsubst ../,,$(directory))
 		
 
 include $(wildcard $(DEPENDENCY_FILES_ALL_IN_DEPENDENCY_DIRECTORIES))
