@@ -553,47 +553,28 @@ START_TEST(s21_sprintf_test26)
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// %f Maximum double value test
+// %s Regular value test
 }
 END_TEST
 
 START_TEST(s21_sprintf_test27)
 {
 #line 423
-    const double input_int = 340282346638528859811704183484516925440.000000;
-    const char *format = "test %f%f%f Hello, World %f%f%f test";
+    char test_string[100] = "hello world";
+    char *pointer = test_string;
+    const char *format = "%s";
 
-    char s21_buffer[400];
-    memset(s21_buffer, 0, 400);
-    char buffer[400];
-    memset(buffer, 0, 400);
+    char s21_buffer[500];
+    memset(s21_buffer, 0, 500);
+    char buffer[500];
+    memset(buffer, 0, 500);
 
-    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
-    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int s21_result = s21_sprintf(s21_buffer, format, test_string);
+    const int result = sprintf(buffer, format, test_string);
     
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
-// %f Minimum double value test
-}
-END_TEST
-
-START_TEST(s21_sprintf_test28)
-{
-#line 439
-    const double input_int = -340282346638528859811704183484516925440.000000;
-    const char *format = "test %f%f%f Hello, World %f%f%f test";
-
-    char s21_buffer[400];
-    memset(s21_buffer, 0, 400);
-    char buffer[400];
-    memset(buffer, 0, 400);
-
-    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
-    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
-    
-    ck_assert_str_eq(s21_buffer, buffer);
-    ck_assert_int_eq(s21_result, result);
 }
 END_TEST
 
@@ -632,7 +613,6 @@ int main(void)
     tcase_add_test(tc1_1, s21_sprintf_test25);
     tcase_add_test(tc1_1, s21_sprintf_test26);
     tcase_add_test(tc1_1, s21_sprintf_test27);
-    tcase_add_test(tc1_1, s21_sprintf_test28);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);

@@ -20,17 +20,17 @@ What to return - number of characters written to buffer
         f, 
 +            Find out what %f does:
 +            %f converts floating-point number to the decimal notation in the style [-]ddd.ddd.
-            Value range of %f: -340282346638528859811704183484516925440.000000 to 340282346638528859811704183484516925440.000000, precision - 6 decimal places
-            Precision specifies the exact number of digits to appear after the decimal point character. The default precision is 6.
-            if the precision is explicitly zero, no decimal-point character appears. If a decimal point appears, at least one digit appears before it.
++-           Value range of %f: -340282346638528859811704183484516925440.000000 to 340282346638528859811704183484516925440.000000, precision - 6 decimal places
+-            Precision specifies the exact number of digits to appear after the decimal point character. The default precision is 6.
+-            if the precision is explicitly zero, no decimal-point character appears. If a decimal point appears, at least one digit appears before it.
 
-+            1. Find the index of the dot
-+            2. Multiply the number by 10 to the power of 6 to get rid of the dot
-+            3. Write the result of the previous step to the array of chars and insert the dot at the specified index. Write to maximum to of 6 decimal places
-            4. Fix the bug of values after the flag - unnecessary '\0' is add to the array
-            5. Fix the max of range value bug
-            6. Think about the precision specificators
-        s, 
+        s,
+            Find out what %s does: 
+            Writes a character string
+            The argument must be a pointer to the initial element of an array of characters. Precision specifies the maximum number of bytes to be written. 
+            If Precision is not specified, writes every byte up to and not including the first null terminator. 
+            If a precision is given, no null character need be present; if the precision is not specified, or is greater than the size of the array, 
+            the array must contain a terminating NUL character.
         u, 
 +        %
     b. Flags: 
@@ -148,6 +148,9 @@ void choose_return_type(char *buffer, const char *format, int *index, va_list ar
     if ('f' == *format) {
         f_specifier(buffer, index, argp);
     }
+    if ('s' == *format) {
+        s_specifier(buffer, index, argp);
+    }
 }
 
 void c_specifier(char *buffer, int *index, va_list argp) {
@@ -167,10 +170,12 @@ void d_i_specifier(char *buffer, int *index, va_list argp) {
 }
 
 void f_specifier(char *buffer, int *index, va_list argp) {
+    // Here I can implement the precision for the number. Just check the format with if else
     char array_for_double[49] = {'\0'};
     char *pointer_array_for_double = array_for_double;
     // Ask Misha what's wrong here - didn't build the file with the s21_memset library + Misha didn't compile the file with gcc flags. Going to use '\0' for now
     // s21_memset(array_for_double, 0, 49);
+    // !!! Can be replaced with long double to work with bigger numbers. After that you should rework the data type in all nesting functions
     const double temp_arpg_variable = va_arg(argp, double);
     int dot_index = find_dot_index(temp_arpg_variable);
     // Write to the buffer the array_for_double. When you meet dot_index, insert dot char and continue to write chars until 6 decimal places of precision
@@ -222,3 +227,15 @@ void double_to_array_of_chars(char *pointer_array_for_double, double temp_arpg_v
     }
 }
 
+void s_specifier(char *buffer, int *index, va_list argp) {
+    char temp_argp_array[1024] = "\0";
+    char *pointer_temp_argp_array = temp_argp_array;
+    pointer_temp_argp_array = va_arg(argp, char*);
+    int temp_argp_array_index = 0;
+    while (*pointer_temp_argp_array != '\0') {
+        buffer[*index] = temp_argp_array[temp_argp_array_index];
+        ++*index;
+        ++temp_argp_array_index;
+        ++pointer_temp_argp_array;
+    }
+}
