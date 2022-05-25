@@ -36,14 +36,6 @@ void choose_return_type(char *buffer, const char *format, int *index, va_list ar
 }
 
 void s_specifier(char *buffer, int *index, va_list argp) {
-    char temp_argp_array[1024] = "\0";
-    char *pointer_temp_argp_array = temp_argp_array;
-    pointer_temp_argp_array = va_arg(argp, char*);
-    int temp_argp_array_index = 0;
-    while (*pointer_temp_argp_array != '\0') {
-        buffer[*index] = temp_argp_array[temp_argp_array_index];
-        ++*index;
-        ++temp_argp_array_index;
-        ++pointer_temp_argp_array;
-    }
+    char *pointer_temp_argp_array = va_arg(argp, char *);
+    // Here I can use strcpy, strlen and memset as helping functions
 }

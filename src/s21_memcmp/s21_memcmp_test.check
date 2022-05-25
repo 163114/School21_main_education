@@ -36,3 +36,4 @@
     const char *string2 = "wow";
     const s21_size_t size = 2;
     ck_assert_int_eq(s21_memcmp(string1, string2, size), memcmp(string1, string2, size));
+

@@ -41,3 +41,4 @@
     memset(string, symbol, length);
 
     ck_assert_mem_eq(s21_string, string, length);
+

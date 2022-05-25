@@ -4,7 +4,7 @@ CFLAGS=-std=c11 -c
 CFLAGS_GCOV=-fprofile-arcs -ftest-coverage
 LIBS=-lcheck -lgcov
 
-SOURCE_DIRECTORIES=../s21_strlen
+SOURCE_DIRECTORIES=../s21_strlen 
 OBJECT_DIRECTORIES_TO_CLEAN=$(subst ../,,$(filter ../%, $(SOURCE_DIRECTORIES)))
 
 BUILD_DIRECTORY=build

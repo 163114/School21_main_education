@@ -1,0 +1,95 @@
+#include <string.h>
+#include "../s21_string.h"
+
+#test s21_strerror_test0
+    ck_assert_pstr_eq(s21_strerror(0), strerror(0));
+#test s21_strerror_test1
+    ck_assert_pstr_eq(s21_strerror(1), strerror(1));
+#test s21_strerror_test2
+    ck_assert_pstr_eq(s21_strerror(2), strerror(2));
+#test s21_strerror_test3
+    ck_assert_pstr_eq(s21_strerror(3), strerror(3));
+#test s21_strerror_test4
+    ck_assert_pstr_eq(s21_strerror(4), strerror(4));
+#test s21_strerror_test5
+    ck_assert_pstr_eq(s21_strerror(5), strerror(5));
+#test s21_strerror_test6
+    ck_assert_pstr_eq(s21_strerror(6), strerror(6));
+#test s21_strerror_test7
+    ck_assert_pstr_eq(s21_strerror(7), strerror(7));
+#test s21_strerror_test8
+    ck_assert_pstr_eq(s21_strerror(8), strerror(8));
+#test s21_strerror_test9
+    ck_assert_pstr_eq(s21_strerror(9), strerror(9));
+
+#test s21_strerror_test10
+    ck_assert_pstr_eq(s21_strerror(10), strerror(10));
+#test s21_strerror_test11
+    ck_assert_pstr_eq(s21_strerror(11), strerror(11));
+#test s21_strerror_test12
+    ck_assert_pstr_eq(s21_strerror(12), strerror(12));
+#test s21_strerror_test13
+    ck_assert_pstr_eq(s21_strerror(13), strerror(13));
+#test s21_strerror_test14
+    ck_assert_pstr_eq(s21_strerror(14), strerror(14));
+#test s21_strerror_test15
+    ck_assert_pstr_eq(s21_strerror(15), strerror(15));
+#test s21_strerror_test16
+    ck_assert_pstr_eq(s21_strerror(16), strerror(16));
+#test s21_strerror_test17
+    ck_assert_pstr_eq(s21_strerror(17), strerror(17));
+#test s21_strerror_test18
+    ck_assert_pstr_eq(s21_strerror(18), strerror(18));
+#test s21_strerror_test19
+    ck_assert_pstr_eq(s21_strerror(19), strerror(19));
+
+#test s21_strerror_test20
+    ck_assert_pstr_eq(s21_strerror(20), strerror(20));
+#test s21_strerror_test21
+    ck_assert_pstr_eq(s21_strerror(21), strerror(21));
+#test s21_strerror_test22
+    ck_assert_pstr_eq(s21_strerror(22), strerror(22));
+#test s21_strerror_test23
+    ck_assert_pstr_eq(s21_strerror(23), strerror(23));
+#test s21_strerror_test24
+    ck_assert_pstr_eq(s21_strerror(24), strerror(24));
+#test s21_strerror_test25
+    ck_assert_pstr_eq(s21_strerror(25), strerror(25));
+#test s21_strerror_test26
+    ck_assert_pstr_eq(s21_strerror(26), strerror(26));
+#test s21_strerror_test27
+    ck_assert_pstr_eq(s21_strerror(27), strerror(27));
+#test s21_strerror_test28
+    ck_assert_pstr_eq(s21_strerror(28), strerror(28));
+#test s21_strerror_test29
+    ck_assert_pstr_eq(s21_strerror(29), strerror(29));
+
+#test s21_strerror_test30
+    ck_assert_pstr_eq(s21_strerror(30), strerror(30));
+#test s21_strerror_test31
+    ck_assert_pstr_eq(s21_strerror(31), strerror(31));
+#test s21_strerror_test32
+    ck_assert_pstr_eq(s21_strerror(32), strerror(32));
+#test s21_strerror_test33
+    ck_assert_pstr_eq(s21_strerror(33), strerror(33));
+#test s21_strerror_test34
+    ck_assert_pstr_eq(s21_strerror(34), strerror(34));
+#test s21_strerror_test35
+    ck_assert_pstr_eq(s21_strerror(35), strerror(35));
+#test s21_strerror_test36
+    ck_assert_pstr_eq(s21_strerror(36), strerror(36));
+#test s21_strerror_test37
+    ck_assert_pstr_eq(s21_strerror(37), strerror(37));
+#test s21_strerror_test38
+    ck_assert_pstr_eq(s21_strerror(38), strerror(38));
+#test s21_strerror_test39
+    ck_assert_pstr_eq(s21_strerror(39), strerror(39));
+
+#test s21_strerror_test40
+    ck_assert_pstr_eq(s21_strerror(-5), strerror(-5));
+#test s21_strerror_test41
+    ck_assert_pstr_eq(s21_strerror(1489), strerror(1489));
+#test s21_strerror_test42
+    ck_assert_pstr_eq(s21_strerror(-1489), strerror(-1489));
+#test s21_strerror_test43
+    ck_assert_pstr_eq(s21_strerror(12345678), strerror(12345678));

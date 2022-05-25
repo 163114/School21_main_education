@@ -1,8 +1,49 @@
 #include <string.h>
 #include "../s21_string.h"
 
-#test s21_strcmp_test
-    const char *input11 = "Hello, I am your new coach.";
-    const char *input12 = "Hello, I am your new coach.";
-    ck_assert_int_eq(s21_strcmp(input11, input12), strcmp(input11, input12));
+#test s21_strcmp_test1
+    const char *input1 = "Hello, I am your new coach.";
+    const char *input2 = "Hello, I am your new coach.";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test2
+    const char *input1 = "Hello, I am your new coach. Hey";
+    const char *input2 = "Hello, I am your new coach.";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test3
+    const char *input1 = "Hello, I am your new coach?";
+    const char *input2 = "Hello, I am your new coach.";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test4
+    const char *input1 = "Hello, I am your new coach.";
+    const char *input2 = "Hello, I am your new coach?";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test5
+    const char *input1 = "Hello, I am your new coach.";
+    const char *input2 = "Hello, I am your new coach.";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test6
+    const char *input1 = "Hello, I am your new coach!!";
+    const char *input2 = "Hello, I am your new coach??";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test7
+    const char *input1 = "";
+    const char *input2 = "Hello, I am your new coach??";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test8
+    const char *input1 = "Hello, I am your new coach!!";
+    const char *input2 = "";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
+#test s21_strcmp_test9
+    const char *input1 = "";
+    const char *input2 = "";
+    ck_assert_int_eq(s21_strcmp(input1, input2), strcmp(input1, input2));
+
 

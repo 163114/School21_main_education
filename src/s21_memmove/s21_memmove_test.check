@@ -2,7 +2,7 @@
 #include "../s21_string.h"
 
 #test s21_memmove_test1
-    const unsigned char *source = "Hello, I am your new coach. Surprised?";
+    const char *source = "Hello, I am your new coach. Surprised?";
     
     char s21_destination[100];
     memset(s21_destination, 0, 100);
@@ -11,13 +11,17 @@
     
     const s21_size_t size = s21_strlen(source);
 
-    s21_memmove(s21_destination, source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test2
-    const unsigned char *source = "Hello, I am your new coach. Surprised? Stunned?";
+    const char *source = "Hello, I am your new coach. Surprised? Stunned?";
     
     char s21_destination[100];
     memset(s21_destination, 0, 100);
@@ -26,13 +30,17 @@
     
     const s21_size_t size = s21_strlen(source);
 
-    s21_memmove(s21_destination, source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test3
-    const unsigned char *source = "Hello, I am your new coach. Surprised? Stunned?";
+    const char *source = "Hello, I am your new coach. Surprised? Stunned?";
     
     char s21_destination[100];
     memset(s21_destination, 0, 100);
@@ -41,13 +49,17 @@
     
     const s21_size_t size = s21_strlen(source) / 2;
 
-    s21_memmove(s21_destination, source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test4
-    const unsigned char *source = "";
+    const char *source = "";
     
     char s21_destination[100];
     memset(s21_destination, 0, 100);
@@ -56,13 +68,17 @@
     
     const s21_size_t size = s21_strlen(source);
 
-    s21_memmove(s21_destination, source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test5
-    const unsigned char *source = "Wow";
+    const char *source = "Wow";
     
     char s21_destination[100];
     memset(s21_destination, 0, 100);
@@ -71,13 +87,17 @@
     
     const s21_size_t size = s21_strlen(source);
 
-    s21_memmove(s21_destination, source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test6
-    const unsigned char *source = "Wow";
+    const char *source = "Wow";
     
     char s21_destination[100];
     memset(s21_destination, 0, 100);
@@ -86,10 +106,14 @@
     
     const s21_size_t size = 0;
 
-    s21_memmove(s21_destination, source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 
 // TESTS WITH OVERLAPPING SOURCE AND DESTINATION
@@ -103,10 +127,14 @@
     
     const s21_size_t size = 5;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test8
     char s21_source[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
@@ -117,10 +145,14 @@
     
     const s21_size_t size = 5;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test9
     char s21_destination[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
@@ -131,41 +163,53 @@
     
     const s21_size_t size = 5;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test10
     char s21_destination[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
-    char destination[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
+    char destination[]     = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
     
     char *s21_source = s21_destination + 3;    
     char *source = destination + 3;
     
     const s21_size_t size = 5;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 
 // TESTS WITHOUT OVERLAPPING SOURCE AND DESTINATION
 
 #test s21_memmove_test11
     char s21_source[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
-    char source[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
+    char source[]     = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
     
     char *s21_destination = s21_source + 3;    
     char *destination = source + 3;
     
     const s21_size_t size = 2;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test12
     char s21_source[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
@@ -176,10 +220,14 @@
     
     const s21_size_t size = 3;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test13
     char s21_destination[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
@@ -190,10 +238,14 @@
     
     const s21_size_t size = 2;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
 
 #test s21_memmove_test14
     char s21_destination[] = { 'H', 'e', 'l', 'l', 'o', ',', 'w', 'o', 'w', '!', '\0'};
@@ -204,7 +256,49 @@
 
     const s21_size_t size = 3;
 
-    s21_memmove(s21_destination, s21_source, size);
-    memmove(destination, source, size);
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
 
     ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
+
+
+#test s21_memmove_test15
+    char s21_destination[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', '\0' };
+    char destination[]     = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', '\0' };
+    
+    char *s21_source = s21_destination + 2;    
+    char *source = destination + 2;
+    
+    const s21_size_t size = 5;
+
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
+
+    ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
+
+#test s21_memmove_test16
+    char s21_destination[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', '\0' };
+    char destination[]     = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', '\0' };
+    
+    char *s21_source = s21_destination + 3;    
+    char *source = destination + 3;
+    
+    const s21_size_t size = 5;
+
+    char *s21_destination_copy = s21_memmove(s21_destination, s21_source, size);
+    char *destination_copy = memmove(destination, source, size);
+
+    ck_assert_mem_eq(s21_destination, destination, size);
+    ck_assert_mem_eq(s21_destination_copy, destination_copy, size);
+
+    free(s21_destination_copy);
+    free(destination_copy);
+
