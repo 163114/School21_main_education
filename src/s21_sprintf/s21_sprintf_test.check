@@ -2,6 +2,138 @@
 #include <stdio.h>
 #include "../s21_string.h"
 
+// Used here to remove the following warning - "warning: implicit declaration of function s21_sprintf"
+int s21_sprintf(char *buffer, const char *format, ...);
+
+// %% Single percent sign test
+#test s21_sprintf_test00
+    const char percent = '%';
+    const char *format = "%%c";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, percent);
+    const int result = sprintf(buffer, format, percent);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %% Multiple percent sign test
+#test s21_sprintf_test01
+    const char percent = '%';
+    const char *format = "%%c%%%c%%%%c%%%%%c%%%%%%c";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, percent, percent, percent, percent, percent);
+    const int result = sprintf(buffer, format, percent, percent, percent, percent, percent);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %% Multiple percent sign test with string inbetween
+#test s21_sprintf_test02
+    const char percent = '%';
+    const char *format = "%%c%%%c%%%%c%%%%%c%%%%%%c Hello world %%c%%%c%%%%c%%%%%c%%%%%%c Hello world %%c%%%c%%%%c%%%%%c%%%%%%c";
+
+    char s21_buffer[300];
+    memset(s21_buffer, 0, 300);
+    char buffer[300];
+    memset(buffer, 0, 300);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent);
+    const int result = sprintf(buffer, format, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent, percent);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// % Invalid chars after the percent
+// If a percent sign (%) is followed by a character that has no meaning as a format field, the character is simply copied to the buffer
+#test s21_sprintf_test03
+    const char misc_char = '@';
+    const char *format = "%%c";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, misc_char);
+    const int result = sprintf(buffer, format, misc_char);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// % Invalid chars after the percent
+// If a percent sign (%) is followed by a character that has no meaning as a format field, the character is simply copied to the buffer
+#test s21_sprintf_test04
+    const char *format = "%@!%(%)%{%}%%==";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format);
+    const int result = sprintf(buffer, format);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// % More invalid chars after the percent
+// If a percent sign (%) is followed by a character that has no meaning as a format field, the character is simply copied to the buffer
+#test s21_sprintf_test05
+    const char *format = "%^%$%^&$#%@%!1234566543%{dfghjdf%±";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format);
+    const int result = sprintf(buffer, format);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// % More invalid chars after the percent
+// If a percent sign (%) is followed by a character that has no meaning as a format field, the character is simply copied to the buffer
+#test s21_sprintf_test06
+    const char *format = "%%%@!12345665()[]{}{{***43dfghjdf";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format);
+    const int result = sprintf(buffer, format);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// % More invalid chars after the percent
+// If a percent sign (%) is followed by a character that has no meaning as a format field, the character is simply copied to the buffer
+#test s21_sprintf_test07
+    const char *format = "р%%о%л%д%%@%!%%2345665()[вавава]{привет мир}{{***43вававаdfghjdf";
+
+    char s21_buffer[100];
+    memset(s21_buffer, 0, 100);
+    char buffer[100];
+    memset(buffer, 0, 100);
+
+    const int s21_result = s21_sprintf(s21_buffer, format);
+    const int result = sprintf(buffer, format);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
 // %c Regular value test
 #test s21_sprintf_test1
     const char input = '!';
@@ -435,20 +567,216 @@
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
+// %s Regular value test - duplicate in a row
+#test s21_sprintf_test28
+    char test_string[100] = "hello world";
+    char *pointer = test_string;
+    const char *format = "%s %s %s hello %s %s %s world %s %s %s";
 
-#test s21_sprintf_test6
-    const char input1 = '!';
-    const double input2 = 13.87;
-    const char *format = "Hello, %lf, World%c!%c%c";
+    char s21_buffer[500];
+    memset(s21_buffer, 0, 500);
+    char buffer[500];
+    memset(buffer, 0, 500);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string);
+    const int result = sprintf(buffer, format, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %s Regular value test - duplicate in a row
+#test s21_sprintf_test29
+    char test_string[100] = "hello world";
+    char *pointer = test_string;
+    const char *format = "%s %s %s hello %s %s %s world %s %s %s";
+
+    char s21_buffer[500];
+    memset(s21_buffer, 0, 500);
+    char buffer[500];
+    memset(buffer, 0, 500);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string);
+    const int result = sprintf(buffer, format, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %s Empty string test
+#test s21_sprintf_test30
+    char test_string[100] = "\0";
+    char *pointer = test_string;
+    const char *format = "%s %s %s hello %s %s %s world %s %s %s";
+
+    char s21_buffer[500];
+    memset(s21_buffer, 0, 500);
+    char buffer[500];
+    memset(buffer, 0, 500);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string);
+    const int result = sprintf(buffer, format, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string, test_string);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Regular value test
+#test s21_sprintf_test31
+    const unsigned int input_int = 748364;
+    const char *format = " Hello, World %u";
 
     char s21_buffer[100];
     memset(s21_buffer, 0, 100);
     char buffer[100];
     memset(buffer, 0, 100);
 
-    const int s21_result = s21_sprintf(s21_buffer, format, input2, input1, input1, input1);
-    const int result = sprintf(buffer, format, input2, input1, input1, input1);
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int);
+    const int result = sprintf(buffer, format, input_int);
     
     ck_assert_str_eq(s21_buffer, buffer);
     ck_assert_int_eq(s21_result, result);
 
+// %u Regular value test - multiple u_specifiers in a row
+#test s21_sprintf_test32
+    const unsigned int input_int = 748364;
+    const char *format = "%u %u %u Hello, World %u%u%u Hello, World %u %u %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Regular value test - multiple u_specifiers in a row with different values
+#test s21_sprintf_test33
+    const unsigned int input_unsigned_int_first = 748364;
+    const unsigned int input_unsigned_int_second = 12345;
+    const char *format = "%u %u %u Hello, World %u%u%u Hello, World %u %u %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first);
+    const int result = sprintf(buffer, format, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_first);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Regular value test - tripple u_specifiers in a row with different values
+#test s21_sprintf_test34
+    const unsigned int input_unsigned_int_first = 748364;
+    const unsigned int input_unsigned_int_second = 12345;
+    const unsigned int input_unsigned_int_third = 1337;
+    const char *format = "%u %u %u Hello, World %u%u%u Hello, World %u %u %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_third, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_third, input_unsigned_int_second, input_unsigned_int_first);
+    const int result = sprintf(buffer, format, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_third, input_unsigned_int_second, input_unsigned_int_first, input_unsigned_int_second, input_unsigned_int_third, input_unsigned_int_second, input_unsigned_int_first);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Minimum value test
+#test s21_sprintf_test35
+    const unsigned int input_unsigned_int = 0;
+    const char *format = "Hello, World %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Minimum value test - multiple values
+#test s21_sprintf_test36
+    const unsigned int input_unsigned_int = 0;
+    const char *format = "%u %u %u Hello, World %u%u%u Hello, World %u %u %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Maximum value test
+#test s21_sprintf_test37
+    const unsigned int input_unsigned_int = 4294967295;
+    const char *format = "Hello, World %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Maximum value test - multiple values
+#test s21_sprintf_test38
+    const unsigned int input_unsigned_int = 4294967295;
+    const char *format = "%u %u %u Hello, World %u%u%u Hello, World %u %u %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Abnormal value - negative value
+#test s21_sprintf_test39
+    const unsigned int input_unsigned_int = -3;
+    const char *format = "%u %u %u Hello, World %u%u%u Hello, World %u %u %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %u Abnormal value - bigger than max range value
+#test s21_sprintf_test40
+    const long int input_unsigned_int = 8589934590;
+    const char *format = "%u %u %u Hello, World %u%u%u Hello, World %u %u %u";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 0, 200);
+    char buffer[200];
+    memset(buffer, 0, 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);

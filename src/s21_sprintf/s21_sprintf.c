@@ -17,30 +17,50 @@ What to return - number of characters written to buffer
 +            otherwise it will print garbage value.( Note: if input is in octal format like:012 then %d will ignore 0 and take input as 12).
 +            %i takes integer value as integer value with decimal, hexadecimal or octal type.
 +            To enter a value in hexadecimal format – value should be provided by preceding “0x” and value in octal format – value should be provided by preceding “0”.
-        f, 
++-        f, 
 +            Find out what %f does:
 +            %f converts floating-point number to the decimal notation in the style [-]ddd.ddd.
 +-           Value range of %f: -340282346638528859811704183484516925440.000000 to 340282346638528859811704183484516925440.000000, precision - 6 decimal places
 -            Precision specifies the exact number of digits to appear after the decimal point character. The default precision is 6.
 -            if the precision is explicitly zero, no decimal-point character appears. If a decimal point appears, at least one digit appears before it.
-
-        s,
-            Find out what %s does: 
-            Writes a character string
-            The argument must be a pointer to the initial element of an array of characters. Precision specifies the maximum number of bytes to be written. 
-            If Precision is not specified, writes every byte up to and not including the first null terminator. 
-            If a precision is given, no null character need be present; if the precision is not specified, or is greater than the size of the array, 
-            the array must contain a terminating NUL character.
-        u, 
++-        s,
++            Find out what %s does: 
++            Writes a character string
+-            The argument must be a pointer to the initial element of an array of characters. Precision specifies the maximum number of bytes to be written. 
+-            If Precision is not specified, writes every byte up to and not including the first null terminator. 
+-            If a precision is given, no null character need be present; if the precision is not specified, or is greater than the size of the array, 
++            the array must contain a terminating NUL character.
++        u, 
++            Find out what %u does:
++            Unsigned decimal integer. 
++                What is unsigned? 
++                Unsigned int can hold only integers without a sign (minus). Only positive values and zero can be stored
++                Signed int can store postive and negative values
++                Maximum value for a variable of type unsigned int - 4 294 967 295
++                If I enter a negative value for the %u specifierm, it will go the opposite way. Ex = %u -3 == 4 294 967 293
++                (^In that case variable is repeatedly converted by adding or subtracting one or more than a maximum value until the value is in the range of the new type)
++                The floating point value gets cut off. 3.3 == 3
++                Value bigger than the max value that the unsigned int can store again goes through the range of 0 to 4 294 967 295
++                For example: 4 294 967 296 -> 0, 4 294 967 297 -> 1, 4 294 967 298 ->3, 8 589 934 590 -> 4 294 967 294
 +        %
-    b. Flags: 
++            To print a percent sign character, use %%.
++            If a percent sign (%) is followed by a character that has no meaning as a format field, the character is simply copied to the buffer
+    b. Flags:
++        Find out what the flags do.
+            I need an atoi function to convert an array of chars to an int to implement the flags;
         -, 
-        +, 
+            Left-justify the result within the field width.
+            By default the result if right-justified
+        +,
+            Prefix the output value with a sign (+ or -) if the output value is of a signed type.
+            By default sign appears only for negative signed values (-).
         (space)
+            Prefix the output value with a blank if the output value is signed and positive.
+            The + flag overrides the blank flag if both appear, and a positive signed value will be output with a sign.
     c. Width description: (number)
     d. Precision description: .(number)
     e. Length description: h, l
-3. Memory test
+3. Memory testß
 4. Test
 5. Cpplint test
 6. Add and push
@@ -118,14 +138,22 @@ int s21_sprintf(char *buffer, const char *format, ...) {
     va_list argp;
     // After calling va_start argp points at the first vararg argument
     va_start(argp, format);
-    int index = 0, number_of_specifires = 0;
+    int index = 0;
     while (*format != '\0') {
         if (*format == '%') {
-            ++number_of_specifires;    
             ++format;
-            // Here we can call another function to which we can pass variable arguments by passing a single va_list pointer
-            choose_return_type(buffer, format, &index, argp);
-            ++format;
+            // The variable number_of_spaces is used to store the number of spaces the are going to be left or right justified later
+            // int number_of_spaces = 0;
+            int are_there_flags = FALSE;
+            if ((are_there_flags = check_if_there_are_any_flags(&index, *format)) == TRUE) {
+                
+                // Probably the best way to do this would be to call this inside the function of a flag
+                // number_of_spaces = s21_atoi(format);
+            } else {
+                // Here we can call another function to which we can pass variable arguments by passing a single va_list pointer
+                choose_return_type(buffer, format, &index, argp);
+                ++format;
+            }
         } else {
             buffer[index] = *format;
             ++index;
@@ -138,20 +166,30 @@ int s21_sprintf(char *buffer, const char *format, ...) {
     return index;
 }
 
-void choose_return_type(char *buffer, const char *format, int *index, va_list argp) {
-    if ('c' == *format) {
-        c_specifier(buffer, index, argp);
-    }
-    if ('d' == *format || 'i' == *format) {
-        d_i_specifier(buffer, index, argp);
-    }
-    if ('f' == *format) {
-        f_specifier(buffer, index, argp);
-    }
-    if ('s' == *format) {
-        s_specifier(buffer, index, argp);
+void choose_flag_type(char *buffer, const char *format, int *index) {
+    
+    if ('-' == *format) {
+        left_justify_flag(buffer, format, index);
     }
 }
+
+void choose_return_type(char *buffer, const char *format, int *index, va_list argp) {
+    // Maybe I can specify flags here. It may be easier
+    if ('c' == *format) {
+        c_specifier(buffer, index, argp);
+    } else if ('d' == *format || 'i' == *format) {
+        d_i_specifier(buffer, index, argp);
+    } else if ('f' == *format) {
+        f_specifier(buffer, index, argp);
+    } else if ('s' == *format) {
+        s_specifier(buffer, index, argp);
+    } else if ('u' == *format) {
+        u_specifier(buffer, index, argp);
+    } else {
+        percent_specifier(buffer, index, *format);
+    }
+}
+
 
 void c_specifier(char *buffer, int *index, va_list argp) {
     buffer[*index] = va_arg(argp, int);
@@ -228,14 +266,42 @@ void double_to_array_of_chars(char *pointer_array_for_double, double temp_arpg_v
 }
 
 void s_specifier(char *buffer, int *index, va_list argp) {
-    char temp_argp_array[1024] = "\0";
-    char *pointer_temp_argp_array = temp_argp_array;
-    pointer_temp_argp_array = va_arg(argp, char*);
     int temp_argp_array_index = 0;
-    while (*pointer_temp_argp_array != '\0') {
-        buffer[*index] = temp_argp_array[temp_argp_array_index];
+    char *pointer_temp_argp_array = va_arg(argp, char*);
+    while (pointer_temp_argp_array[temp_argp_array_index] != '\0') {
+        buffer[*index] = pointer_temp_argp_array[temp_argp_array_index];
         ++*index;
         ++temp_argp_array_index;
-        ++pointer_temp_argp_array;
     }
+}
+
+void u_specifier(char *buffer, int *index, va_list argp) {
+    char array_for_unsigned_int[12];
+    int unsigned_int_array_index = 0;
+    s21_itoa_unsigned(va_arg(argp, unsigned int), array_for_unsigned_int, 10);
+    while (array_for_unsigned_int[unsigned_int_array_index] != '\0') {
+        buffer[*index] = array_for_unsigned_int[unsigned_int_array_index];
+        ++unsigned_int_array_index;
+        ++*index;
+    }
+}
+
+void percent_specifier(char *buffer, int *index, const char format) {
+    buffer[*index] = format;
+    ++*index;
+}
+
+int check_if_there_are_any_flags(char format, int *index) {
+    int are_there_flags = FALSE;
+    if ('-' == format || '+' == format || ' ' == format) {
+        are_there_flags = TRUE;
+        ++*index;
+    }
+    return are_there_flags;
+}
+
+void left_justify_flag(char *buffer, const char *format, int *index) {
+    int number_of_spaces = 0;
+    number_of_spaces = s21_atoi(format);
+
 }

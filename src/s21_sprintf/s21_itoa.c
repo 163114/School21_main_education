@@ -50,3 +50,36 @@ char* s21_itoa(int number, char *buffer, int base) {
     buffer[current] = '\0';
     return buffer;
 }
+
+char* s21_itoa_unsigned(unsigned int number, char *buffer, int base) {
+    unsigned int current = 0;
+    if (number == 0) {
+        buffer[current++] = '0';
+        buffer[current] = '\0';
+        return buffer;
+    }
+    unsigned int num_digits = 0;
+    if (number < 0) {
+        if (base == 10) { 
+        ++num_digits;
+        buffer[current] = '-';
+        ++current;
+        number *= -1;
+        } 
+        // Used for the case when to the function is passed a non-valid radix argument
+        else {
+            return NULL;
+        }
+    }
+    num_digits += (int)floor(log(number) / log(base)) + 1;
+    while (current < num_digits) {
+        int base_val = (int) pow(base, num_digits -1 -current);
+        unsigned int num_val = number / base_val;
+        char value = num_val + '0';
+        buffer[current] = value;
+        ++current;
+        number -= base_val * num_val;
+    }
+    buffer[current] = '\0';
+    return buffer;
+}
