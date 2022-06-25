@@ -1,0 +1,18 @@
+#include <string.h>
+#include "s21_string.h"
+
+#test s21_strlen_test1
+    const char *input = "Hello, I am your new coach.";    
+    ck_assert_uint_eq(s21_strlen(input), strlen(input));
+
+#test s21_strlen_test2
+    const char *input = "";    
+    ck_assert_uint_eq(s21_strlen(input), strlen(input));
+
+#test s21_strlen_test3
+    const char *input = "Hey\0 yo";    
+    ck_assert_uint_eq(s21_strlen(input), strlen(input));
+
+#test s21_strlen_test4
+    const char *input = "Right honourable gentlemen are drinking a tea with a specific conversation.";    
+    ck_assert_uint_eq(s21_strlen(input), strlen(input));

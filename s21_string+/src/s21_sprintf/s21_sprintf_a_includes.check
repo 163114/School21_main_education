@@ -1,4 +1,0 @@
-#include <string.h>
-#include <wchar.h>
-#include <stdio.h>
-#include "../s21_string.h"

@@ -1,0 +1,2065 @@
+
+#include <string.h>
+#include <stdio.h>
+#include "s21_string.h"
+
+// Used here to remove the following warning - "warning: implicit declaration of function s21_sprintf"
+int s21_sprintf(char *buffer, const char *format, ...);
+
+
+// %hu Minimum value test
+#test s21_sprintf_hu_test35
+    const unsigned int input_unsigned_int = 0;
+    const char *format = "Hello, World %hu";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 'a', 200);
+    char buffer[200];
+    memset(buffer, 'a', 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Minimum value test - multiple values
+#test s21_sprintf_hu_test36
+    const unsigned int input_unsigned_int = 0;
+    const char *format = "%hu %hu %hu Hello, World %hu%hu%hu Hello, World %hu %hu %hu";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 'a', 200);
+    char buffer[200];
+    memset(buffer, 'a', 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Maximum value test
+#test s21_sprintf_hu_test37
+    const unsigned int input_unsigned_int = 4294967295;
+    const char *format = "Hello, World %hu";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 'a', 200);
+    char buffer[200];
+    memset(buffer, 'a', 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Maximum value test - multiple values
+#test s21_sprintf_hu_test38
+    const unsigned int input_unsigned_int = 4294967295;
+    const char *format = "%hu %hu %hu Hello, World %hu%hu%hu Hello, World %hu %hu %hu";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 'a', 200);
+    char buffer[200];
+    memset(buffer, 'a', 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Abnormal value - negative value
+#test s21_sprintf_hu_test39
+    const unsigned int input_unsigned_int = -3;
+    const char *format = "%hu %hu %hu Hello, World %hu%hu%hu Hello, World %hu %hu %hu";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 'a', 200);
+    char buffer[200];
+    memset(buffer, 'a', 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Abnormal value - bigger than max range value
+#test s21_sprintf_hu_test40
+    const long unsigned int input_unsigned_int = 8589934590;
+    const char *format = "%hu %hu %hu Hello, World %hu%hu%hu Hello, World %hu %hu %hu";
+
+    char s21_buffer[200];
+    memset(s21_buffer, 'a', 200);
+    char buffer[200];
+    memset(buffer, 'a', 200);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    const int result = sprintf(buffer, format, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int, input_unsigned_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#test s21_sprintf_test_hu_0
+    const unsigned int input_unsigned = 12;
+    const char *format = "%hu!%hu Hello, World %hu!%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_1
+    const unsigned int input_unsigned = -12;
+    const char *format = "%hu!%hu Hello, World %hu!%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_2
+    const unsigned int input_unsigned = 123456789;
+    const char *format = "%hu!%hu Hello, World %hu!%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_3
+    const unsigned int input_unsigned = -123456789;
+    const char *format = "%hu!%hu Hello, World %hu!%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_4
+    const unsigned int input_unsigned = 12;
+    const char *format = "%.0hu!%.0hu DA FUCK %.0hu!%.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_5
+    const unsigned int input_unsigned = 1234;
+    const char *format = "%.1hu!%.2hu DA FUCK %.1hu!%.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_6
+    const unsigned int input_unsigned = -1234;
+    const char *format = "%.1hu!%.2hu DA FUCK %.1hu!%.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+////////////////////////////////////////////////////////////
+
+
+#test s21_sprintf_test_hu_7
+    const unsigned int input_unsigned = 1234;
+    const char *format = "%.5hu!%.7hu DA FUCK %.9hu!%.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_8
+    const unsigned int input_unsigned = -1234;
+    const char *format = "%.13hu!%.7hu DA FUCK %.9hu!%.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_8_1
+    const unsigned int input_unsigned = -1234;
+    const char *format = "%.5hu!%.5hu DA FUCK %.5hu!%.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_9
+    const unsigned int input_unsigned = 1234567890;
+    const char *format = "%.5hu!%.7hu DA FUCK %.9hu!%.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_10
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%.5hu!%.7hu DA FUCK %.9hu!%.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+
+#test s21_sprintf_test_hu_width_0
+    const unsigned int input_unsigned = 12;
+    const char *format = "%0hu!%0hu DA FUCK %0hu!%0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_1
+    const unsigned int input_unsigned = -12;
+    const char *format = "%0hu!%0hu DA FUCK %0hu!%0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_2
+    const unsigned int input_unsigned = 12;
+    const char *format = "%1hu!%2hu DA FUCK %1hu!%2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_3
+    const unsigned int input_unsigned = -12;
+    const char *format = "%1hu!%2hu DA FUCK %1hu!%2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_4
+    const unsigned int input_unsigned = 12;
+    const char *format = "%10hu!%12hu DA FUCK %11hu!%13hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_5
+    const unsigned int input_unsigned = -12;
+    const char *format = "%10hu!%12hu DA FUCK %11hu!%13hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+#test s21_sprintf_test_hu_precision_width_0
+    const unsigned int input_unsigned = 12;
+    const char *format = "%3.0hu!%4.0hu DA FUCK %4.0hu!%5.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_precision_width_1
+    const unsigned int input_unsigned = 12;
+    const char *format = "%3.1hu!%4.2hu DA FUCK %4.1hu!%5.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_precision_width_2
+    const unsigned int input_unsigned = -12;
+    const char *format = "%5.3hu!%6.4hu DA FUCK %6.4hu!%7.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+//////////////////////////////////////////////////////////////////////
+
+
+
+#test s21_sprintf_test_hu_width_left_justify_0
+    const unsigned int input_unsigned = 12;
+    const char *format = "%-0hu!%-0hu DA FUCK %-0hu!%-0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_left_justify_1
+    const unsigned int input_unsigned = 12;
+    const char *format = "%-1hu!%-2hu DA FUCK %-1hu!%-2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_width_left_justify_2
+    const unsigned int input_unsigned = -12;
+    const char *format = "%-0hu!%-0hu DA FUCK %-0hu!%-0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_left_justify_3
+    const unsigned int input_unsigned = -12;
+    const char *format = "%-1hu!%-2hu DA FUCK %-1hu!%-2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_width_left_justify_4
+    const unsigned int input_unsigned = 12;
+    const char *format = "%-3hu!%-4hu DA FUCK %-5hu!%-6hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_left_justify_5
+    const unsigned int input_unsigned = -12;
+    const char *format = "%-3hu!%-4hu DA FUCK %-5hu!%-2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_width_left_justify_6
+    const unsigned int input_unsigned = 12;
+    const char *format = "%-3.0hu!%-4.0hu DA FUCK %-5.0hu!%-2.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_left_justify_7
+    const unsigned int input_unsigned = 12;
+    const char *format = "%-4.1hu!%-4.2hu DA FUCK %-5.1hu!%-4.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_left_justify_8
+    const unsigned int input_unsigned = 12;
+    const char *format = "!%-4.2hu DA FUCK %-5.1hu!%-4.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_width_left_justify_9
+    const unsigned int input_unsigned = -12;
+    const char *format = "%-4.1hu!%-4.2hu DA FUCK %-5.1hu!%-4.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_width_left_justify_10
+    const unsigned int input_unsigned = -12;
+    const char *format = "!%-4.2hu DA FUCK %-5.1hu!%-4.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+////////////////////////////////////////////////////////
+
+#test s21_sprintf_test_hu_plus_0
+    const unsigned int input_unsigned = 12;
+    const char *format = "%hu!%hu DA FUCK %hu!%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_plus_1
+    const unsigned int input_unsigned = -12;
+    const char *format = "%hu!%hu DA FUCK %hu!%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_plus_2
+    const unsigned int input_unsigned = -12;
+    const char *format = "%0.0hu!%0.0hu DA FUCK %0.0hu!%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_3
+    const unsigned int input_unsigned = 12;
+    const char *format = "%0.0hu!%0.0hu DA FUCK %0.0hu!%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_4
+    const unsigned int input_unsigned = 12;
+    const char *format = "%1.0hu!%2.0hu DA FUCK %1.0hu!%2.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_5
+    const unsigned int input_unsigned = 12;
+    const char *format = "%0.1hu!%0.2hu DA FUCK %0.1hu!%0.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_6
+    const unsigned int input_unsigned = -12;
+    const char *format = "%0.1hu!%0.2hu DA FUCK %0.1hu!%0.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_plus_7
+    const unsigned int input_unsigned = 12;
+    const char *format = "%6.1hu!%7.2hu DA FUCK %8.1hu!%9.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_plus_8
+    const unsigned int input_unsigned = -12;
+    const char *format = "%6.1hu!%7.2hu DA FUCK %8.1hu!%9.2hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_9
+    const unsigned int input_unsigned = 12;
+    const char *format = "%8.6hu!%9.7hu DA FUCK %10.8hu!%11.9hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_9_1
+    const unsigned int input_unsigned = -12;
+    const char *format = "%8.6hu!%9.7hu DA FUCK %10.8hu!%11.9hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_10
+    const unsigned int input_unsigned = 12;
+    const char *format = "%6.8hu!%7.9hu DA FUCK %8.10hu!%9.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_11
+    const unsigned int input_unsigned = -12;
+    const char *format = "%6.8hu!%7.9hu DA FUCK %8.10hu!%9.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_plus_12
+    const unsigned int input_unsigned = 1234567890;
+    const char *format = "%6.8hu!%7.9hu DA FUCK %8.10hu!%9.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_13
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%6.8hu!%7.9hu DA FUCK %8.10hu!%9.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_14
+    const unsigned int input_unsigned = 1234567890;
+    const char *format = "%16.8hu!%107.9hu DA FUCK %18.10hu!%19.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_15
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%16.8hu!%17.9hu DA FUCK %18.10hu!%19.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_plus_16
+    const unsigned int input_unsigned = 1234567890;
+    const char *format = "%16.8hu!%107.9hu DA FUCK %18.10hu!%19.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_17
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%6.18hu!%7.19hu DA FUCK %8.20hu!%9.21hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_18
+    const unsigned int input_unsigned = 1234567890;
+    const char *format = "%16.8hu!%107.9hu DA FUCK %18.10hu!%19.11hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_19
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%16.18hu!%17.19hu DA FUCK %18.20hu!%19.21hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_plus_20
+    const unsigned int input_unsigned = 1234567890;
+    const char *format = "%160.80hu!%170.90hu DA FUCK %180.100hu!%190.110hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_plus_21
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%160.180hu!%170.190hu DA FUCK %180.200hu!%190.210hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_left_justify_0
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%-+160.180hu!%-+170.190hu DA FUCK %-+180.200hu!%-+190.210hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_1
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%-160.180hu!%-170.190hu DA FUCK %-180.200hu!%-190.210hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_2
+    const unsigned int input_unsigned = -1234567890;
+    const char *format = "%-160.18hu!%-17.190hu DA FUCK %-180.20hu!%-19.210hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_hu_left_justify_4
+    const unsigned int input_unsigned = -1234;
+    const char *format = "%-+16hu!%-+17hu DA FUCK %-18hu!%-19hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_5
+    const unsigned int input_unsigned = 1234;
+    const char *format = "%-16.10hu!%-17.10hu DA FUCK %-18.8hu!%-19.8hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_6
+    const unsigned int input_unsigned = 1234;
+    const char *format = "%-+16.10hu!%-+17.10hu DA FUCK %-+18.8hu!%-+19.8hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_7
+    const unsigned int input_unsigned = 12;
+    const char *format = "%-6.4hu!%-7.5hu DA FUCK %-8.4hu!%-9.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_8
+    const unsigned int input_unsigned = -12;
+    const char *format = "%-6.4hu!%-7.5hu DA FUCK %-8.4hu!%-9.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_9
+    const unsigned int input_unsigned = 12;
+    const char *format = "%-+6.4hu!%-+7.5hu DA FUCK %-+8.4hu!%-+9.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_10
+    const unsigned int input_unsigned = -12;
+    const char *format = "%-+6.4hu!%-+7.5hu DA FUCK %-+8.4hu!%-+9.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_11
+    const unsigned int input_unsigned = 123;
+    const char *format = "%-6.4hu!%-7.5hu DA FUCK %-8.4hu!%-9.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_hu_left_justify_12
+    const unsigned int input_unsigned = -123;
+    const char *format = "%-6.4hu!%-7.5hu DA FUCK %-8.4hu!%-9.5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned,  input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+
+// %hu Maximum value of hexadecimal int with sign, width and precision
+#test s21_sprintf_hu_specifier_test10
+    const unsigned int input_unsigned = 0x7FFFFFFF;
+    const char *format = "+20.30%9.5hu%-30.15hu%-5.10hu Hello, World %-50.25hu%-50.25hu%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Normal value of hexadecimal int with sign, width and precision
+#test s21_sprintf_hu_specifier_test11
+    const unsigned int input_unsigned = 0x723100;
+    const char *format = "+20.30%9.5hu%-30.15hu%-5.10hu Hello, World %-50.25hu%-50.25hu%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// %hu Minimum value of hexadecimal int with sign, width and precision
+#test s21_sprintf_hu_specifier_test12
+    const unsigned int input_unsigned = -0x7FFFFFFF;
+    const char *format = "+20.30%9.5hu%-30.15hu%-5.10hu Hello, World %-50.25hu%-50.25hu%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Maximum value of octal int with sign, width and precision
+#test s21_sprintf_hu_specifier_test13
+    const unsigned int input_unsigned = 017777777777;
+    const char *format = "+20.30%9.5hu%-30.15hu%-5.10hu Hello, World %-50.25hu%-50.25hu%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Normal value of octal int with sign, width and precision
+#test s21_sprintf_hu_specifier_test14
+    const unsigned int input_unsigned = 034430377;
+    const char *format = "+20.30%9.5hu%-30.15hu%-5.10hu Hello, World %-50.25hu%-50.25hu%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Minimum value of octal int with sign, width and precision
+#test s21_sprintf_hu_specifier_test15
+    const unsigned int input_unsigned = -017777777777;
+    const char *format = "+20.30%9.5hu%-30.15hu%-5.10hu Hello, World %-50.25hu%-50.25hu%0.0hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Regular value - right-justify flag test
+#test s21_sprintf_hu_specifier_test16
+   const unsigned int input_unsigned = 12;
+   const char *format = "%5hu%5hu Hello, World %5hu%5hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+
+// %hu Negative value - right-justify flag test
+#test s21_sprintf_hu_specifier_test17
+   const unsigned int input_unsigned = -12;
+   const char *format = "%5hu%5hu Hello, World %5hu%5hu";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Big negative value - right-justify flag test
+#test s21_sprintf_hu_specifier_test18
+   const unsigned int input_unsigned = -1234567;
+   const char *format = "%hu%5hu Hello, World %5hu%5hu";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Big negative value - right-justify flag test with different width
+#test s21_sprintf_hu_specifier_test19
+   const unsigned int input_unsigned = -1234567;
+   const char *format = "%15hu%5hu Hello, World %51hu%5hu";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Negative value - left-justify flag test
+#test s21_sprintf_hu_specifier_test20
+   const unsigned int input_unsigned = -12;
+   const char *format = "%-5hu%-5hu Hello, World %-5hu%-5hu";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Negative value - left-justify flag test with different width
+#test s21_sprintf_hu_specifier_test21
+   const unsigned int input_unsigned = -12;
+   const char *format = "%-5hu%-10hu%-15hu Hello, World %-5hu%-10hu%-15hu";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Negative value - left-justify flag test with different width and singed flag
+#test s21_sprintf_hu_specifier_test22
+   const unsigned int input_unsigned = -12;
+   const char *format = "%-+3hu%-+5hu Hello, World %-+7hu%-+10hu";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Big negative value - left-justify flag test with different width and singed flag
+#test s21_sprintf_hu_specifier_test23
+   const unsigned int input_unsigned = -123456789;
+   const char *format = "%-+5hu%-+5hu Hello, World %-+50hu%-+50hu";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Big positive value - left-justify flag test with different width and singed flag
+#test s21_sprintf_hu_specifier_test24
+   const unsigned int input_unsigned = 123456789;
+   const char *format = "%-+5hu%-+5hu Hello, World %-+50hu%-+50hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Normal value - precision test
+#test s21_sprintf_hu_specifier_test25
+   const unsigned int input_unsigned = 12;
+   const char *format = "%.5hu!%.5hu Hello, World %.5hu!%.5hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Normal value - precision test (two-digit number)
+#test s21_sprintf_hu_specifier_test26
+   const unsigned int input_unsigned = 12345;
+   const char *format = "%.15hu!%.15hu Hello, World %.15hu!%.15hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Normal value - precision test with different precision
+#test s21_sprintf_hu_specifier_test27
+   const unsigned int input_unsigned = 12345;
+   const char *format = "%.1hu!%.3hu Hello, World %.hu!%.15hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Negative value - precision test with same values
+#test s21_sprintf_hu_specifier_test28
+   const unsigned int input_unsigned = -12345;
+   const char *format = "%.7hu!%.7hu Hello, World %.7hu!%.7hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Big negative value - precision test with same values
+#test s21_sprintf_hu_specifier_test29
+   const unsigned int input_unsigned = -123456789;
+   const char *format = "%.7hu!%.7hu Hello, World %.7hu!%.7hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Big negative value - precision test with different values
+#test s21_sprintf_hu_specifier_test30
+   const unsigned int input_unsigned = -1234567890;
+   const char *format = "%.7hu!%.17hu Hello, World %.27hu!%.37hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Regular value - width and precision test
+#test s21_sprintf_hu_specifier_test31
+   const unsigned int input_unsigned = 12;
+   const char *format = "%11.2hu!%9.2hu Hello, World %7.2hu!%5.2hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Negative value - width and precision test
+#test s21_sprintf_hu_specifier_test32
+   const unsigned int input_unsigned = -12345;
+   const char *format = "%11.2hu!%9.2hu Hello, World %7.2hu!%5.2hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Negative value - width and precision test - zero precision
+#test s21_sprintf_hu_specifier_test33
+   const unsigned int input_unsigned = -12345;
+   const char *format = "%11.0hu!%9.0hu Hello, World %7.0hu!%5.0hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Regular value - width and precision test - zero precision
+#test s21_sprintf_hu_specifier_test34
+   const unsigned int input_unsigned = 123;
+   const char *format = "%11.0hu!%9.0hu Hello, World %7.0hu!%5.0hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Regular value - width and precision test - different width and different precision
+#test s21_sprintf_hu_specifier_test35
+   const unsigned int input_unsigned = 12;
+   const char *format = "%11.12hu!%9.10hu Hello, World %5.10hu!%10.5hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Negative value - width and precision test - different width and different precision
+#test s21_sprintf_hu_specifier_test36
+   const unsigned int input_unsigned = -12;
+   const char *format = "%11.12hu!%9.10hu Hello, World %5.10hu!%10.5hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Big regualr value - width and precision test - different width and different precision
+#test s21_sprintf_hu_specifier_test37
+   const unsigned int input_unsigned = 123456;
+   const char *format = "%4.5hu!%7.8hu Hello, World %5.10hu!%10.5hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with regular int test
+#test s21_sprintf_hu_specifier_test38
+   const unsigned int input_unsigned = 123456;
+   const char *format = "%hu!%hu Hello, World %hu!%hu";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %hu Sing with maximum value of hexadecimal int
+#test s21_sprintf_hu_specifier_test39
+    const unsigned int input_unsigned = 0x7FFFFFFF;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with normal value of hexadecimal int
+#test s21_sprintf_hu_specifier_test40
+    const unsigned int input_unsigned = 0x723100;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with minimum value of hexadecimal int
+#test s21_sprintf_hu_specifier_test41
+    const unsigned int input_unsigned = -0x7FFFFFFF;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with maximum value of octal int
+#test s21_sprintf_hu_specifier_test42
+    const unsigned int input_unsigned = 017777777777;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with normal value of octal int
+#test s21_sprintf_hu_specifier_test43
+    const unsigned int input_unsigned = 034430377;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with minimum value of octal int
+#test s21_sprintf_hu_specifier_test44
+    const unsigned int input_unsigned = -017777777777;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with maximum int test
+#test s21_sprintf_hu_specifier_test45
+    const unsigned int input_unsigned = 2147483647;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Sign with minimum int test
+#test s21_sprintf_hu_specifier_test46
+    const unsigned int input_unsigned = -2147483647;
+    const char *format = "%hu%hu%hu Hello, World %hu%hu%hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Maximum value of hexadecimal int - left-justified with no value
+#test s21_sprintf_hu_specifier_test47
+    const unsigned int input_unsigned = 0x7FFFFFFF;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Normal value of hexadecimal int - left-justified with no value
+#test s21_sprintf_hu_specifier_test48
+    const unsigned int input_unsigned = 0x723100;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Minimum value of hexadecimal int - left-justified with no value
+#test s21_sprintf_hu_specifier_test49
+    const unsigned int input_unsigned = -0x7FFFFFFF;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Maximum value of octal int - left-justified with no value
+#test s21_sprintf_hu_specifier_test50
+    const unsigned int input_unsigned = 017777777777;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Normal value of octal int - left-justified with no value
+#test s21_sprintf_hu_specifier_test51
+    const unsigned int input_unsigned = 034430377;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Minimum value of octal int - left-justified with no value
+#test s21_sprintf_hu_specifier_test52
+    const unsigned int input_unsigned = -017777777777;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Maximum int test - left-justified with no value
+#test s21_sprintf_hu_specifier_test53
+    const unsigned int input_unsigned = 2147483647;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Minimum int test - left-justified with no value
+#test s21_sprintf_hu_specifier_test54
+    const unsigned int input_unsigned = -2147483647;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Regular int test - left-justified with no value
+#test s21_sprintf_hu_specifier_test55
+    const unsigned int input_unsigned = 7483647;
+    const char *format = "%-hu%-hu%-hu Hello, World %-hu%-hu%-hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Regular int test - signed with different left-justify (min, equal, more than) and precision (min, equal, more than)
+#test s21_sprintf_hu_specifier_test56
+    const unsigned int input_unsigned = 7483647;
+    const char *format = "%-3hu%-7hu%-10hu Hello, World %-3.3hu%-7.7hu%-10.10hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Regular int test - signed with different left-justify (min, equal, more than) and precision (min, equal, more than) - one of the values is not set
+#test s21_sprintf_hu_specifier_test57
+    const unsigned int input_unsigned = 7483647;
+    const char *format = "%-.3hu%-.7hu%-.10hu Hello, World %-3.hu%-7.hu%-10.hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Maximum value
+#test s21_sprintf_hu_specifier_test58
+    const unsigned int input_unsigned = 65535;
+    const char *format = "%-.3hu%-.7hu%-.10hu Hello, World %-3.hu%-7.hu%-10.hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Minimum value - left
+#test s21_sprintf_hu_specifier_test59
+    const short unsigned int input_unsigned = 0;
+    const char *format = "%-.3hu%-.7hu%-.10hu Hello, World %-3.hu%-7.hu%-10.hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %hu Minimum value - right
+#test s21_sprintf_hu_specifier_test60
+    const short unsigned int input_unsigned = 0;
+    const char *format = "%.3hu%.7hu%.10hu Hello, World %3.hu%7.hu%10.hu";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    const int result = sprintf(buffer, format, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned, input_unsigned);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);

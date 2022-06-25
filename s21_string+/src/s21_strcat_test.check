@@ -1,0 +1,92 @@
+#include <string.h>
+#include "s21_string.h"
+
+#test s21_strcat_test1
+    const char *source = "Hello, I am your new coach.";
+    
+    char destination[100] = "Hey ";
+    char s21_destination[100] = "Hey ";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test2
+    const char *source = "Hello, I am your new coach.";
+    
+    char destination[100] = "Hey ";
+    char s21_destination[100] = "Hey ";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test3
+    const char *source = "Hello, I am your new coach.";
+    
+    char destination[100] = "Hey ";
+    char s21_destination[100] = "Hey ";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test4
+    const char *source = "Hello, I am your new coach.";
+    
+    char destination[100] = "Hey, this is the first part. ";
+    char s21_destination[100] = "Hey, this is the first part. ";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test5
+    const char *source = "Hello, I am your new coach.";
+    
+    char destination[100] = "Hey, this is the first part. ";
+    char s21_destination[100] = "Hey, this is the first part. ";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test6
+    const char *source = "Hello, I am your new coach.";
+    
+    char destination[100] = "Hey, this is the first part. That one was crazy. ";
+    char s21_destination[100] = "Hey, this is the first part. That one was crazy. ";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test7
+    const char *source = "";
+    
+    char destination[100] = "Hey, this is the first part. That one was crazy. ";
+    char s21_destination[100] = "Hey, this is the first part. That one was crazy. ";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test8
+    const char *source = "";
+    
+    char destination[100] = "";
+    char s21_destination[100] = "";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test9
+    const char *source = "Holy cocksuckers!!!";
+    
+    char destination[100] = "";
+    char s21_destination[100] = "";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
+
+
+#test s21_strcat_test10
+    const char *source = "Holy cocksuckers!!!";
+ 
+   
+    char destination[100] = "UUUURRGH DA FUUUUUUCK!!!!";
+    char s21_destination[100] = "UUUURRGH DA FUUUUUUCK!!!!";
+
+    ck_assert_pstr_eq(s21_strcat(s21_destination, source), strcat(destination, source));
