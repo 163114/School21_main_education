@@ -1,0 +1,39 @@
+#include <string.h>
+#include "s21_string.h"
+
+#test s21_memcmp_test1
+    const char *string1 = "Hello, I am your new coach.";
+    const char *string2 = "Hello, I am your new coach.";
+    const s21_size_t size = s21_strlen(string1);
+    ck_assert_int_eq(s21_memcmp(string1, string2, size), memcmp(string1, string2, size));
+
+#test s21_memcmp_test2
+    const char *string1 = "Hello, I am your new coach.";
+    const char *string2 = "Hello, I am your new coach.";
+    const s21_size_t size = s21_strlen(string1);
+    ck_assert_int_eq(s21_memcmp(string1, string2, size / 2), memcmp(string1, string2, size / 2));
+
+#test s21_memcmp_test3
+    const char *string1 = "Hello, I am not your new coach.";
+    const char *string2 = "Hello, I am your new coach.";
+    const s21_size_t size = 5;
+    ck_assert_int_eq(s21_memcmp(string1, string2, size), memcmp(string1, string2, size));
+
+#test s21_memcmp_test4
+    const char *string1 = "Hello, I am not your new coach.";
+    const char *string2 = "Hello, I am your new coach.";
+    const s21_size_t size = 15;
+    ck_assert_int_eq(s21_memcmp(string1, string2, size), memcmp(string1, string2, size));
+
+#test s21_memcmp_test5
+    const char *string1 = "";
+    const char *string2 = "";
+    const s21_size_t size = 0;
+    ck_assert_int_eq(s21_memcmp(string1, string2, size), memcmp(string1, string2, size));
+
+#test s21_memcmp_test6
+    const char *string1 = "WOW";
+    const char *string2 = "wow";
+    const s21_size_t size = 2;
+    ck_assert_int_eq(s21_memcmp(string1, string2, size), memcmp(string1, string2, size));
+

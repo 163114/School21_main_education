@@ -1,0 +1,206 @@
+#include <string.h>
+#include "s21_string.h"
+
+#test s21_strtok_test1
+    char string[] = "URGH DA FUCK!";
+    char s21_string[] = "URGH DA FUCK!";
+    const char *delimiters = " ";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    ck_assert_mem_eq(s21_string, string, size);
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test2
+    char string[] = "   Hey, yo, hey";
+    char s21_string[] = "   Hey, yo, hey";
+    const char *delimiters = ", ";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+    /*
+    printf("Contents of the input string now: '");
+    for(size_t n = 0; n < size + 1; ++n)
+        string[n] ? putchar(string[n]) : fputs("\\0", stdout);
+    puts("'");
+    printf("Contents of the input string now: '");
+    for(size_t n = 0; n < size + 1; ++n)
+        s21_string[n] ? putchar(s21_string[n]) : fputs("\\0", stdout);
+    puts("'");
+    */
+    ck_assert_mem_eq(s21_string, string, size);
+   
+
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test3
+    char string[] = "  URGH DA FUCK!";
+    char s21_string[] = "  URGH DA FUCK!";
+    const char *delimiters = " ";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    ck_assert_mem_eq(s21_string, string, size);
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test4
+    char string[] = "URGH DA FUCK!";
+    char s21_string[] = "URGH DA FUCK!";
+    const char *delimiters = " ";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    ck_assert_mem_eq(s21_string, string, size);
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test5
+    char string[] = "Hey,yo,bitch,wow";
+    char s21_string[] = "Hey,yo,bitch,wow";
+    const char *delimiters = ",";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    ck_assert_mem_eq(s21_string, string, size);
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test6
+    char string[] = "HEEEEY, Hey, yo, bitch";
+    char s21_string[] = "HEEEEY, Hey, yo, bitch";
+    const char *delimiters = ", ";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    ck_assert_mem_eq(s21_string, string, size);
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test7
+    //char source[]     = "On the streets, please, drive safely and responsibly! You should care!\01234567\0\0\0\0"; //-
+    //char s21_source[] = "On the streets, please, drive safely and responsibly! You should care!\01234567\0\0\0\0"; //-
+    //char source[]     = "On the streets, please, drive safely and responsibly! You should care!\0\0\0\0\0\0\0\0\0"; //+
+    //char s21_source[] = "On the streets, please, drive safely and responsibly! You should care!\0\0\0\0\0\0\0\0\0"; //+
+    //char source[]     = "On the streets, please, drive safely and responsibly! You should care!123456789"; //+ 83+terminator
+    //char s21_source[] = "On the streets, please, drive safely and responsibly! You should care!123456789"; //+ 83+terminator
+    //char source[]     = "On the streets, please, drive safely and responsibly! You should care!1234567890"; //+ 84+terminator
+    //char s21_source[] = "On the streets, please, drive safely and responsibly! You should care!1234567890"; //+ 84+terminator
+    //char source[]     = "On the streets, please, drive safely and responsibly! You should care!12345678901"; //- 85+terminator
+    //char s21_source[] = "On the streets, please, drive safely and responsibly! You should care!12345678901"; //- 85+terminator
+    //char source[]     = "On the streets, please, drive safely and responsibly! You should care!12345678901234567890123"; //+- 99+terminator
+    //char s21_source[] = "On the streets, please, drive safely and responsibly! You should care!12345678901234567890123"; //+- 99+terminator
+    char source[]     = "On the streets, please, drive safely and responsibly! You should care!1234567890123456789012345"; //+ 101+terminator
+    char s21_source[] = "On the streets, please, drive safely and responsibly! You should care!1234567890123456789012345"; //+ 101+terminator
+    //char source[]     = "On the streets, p"; //+
+    //char s21_source[] = "On the streets, p"; //+
+
+    const char *delimiters = "!, ";
+
+    const size_t size = strlen(source);
+    
+    char *token = strtok(source, delimiters);
+    char *s21_token = s21_strtok(s21_source, delimiters);
+    
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    ck_assert_mem_eq(s21_source, source, size);  //  this function make valgrind report an error: conditional jump depends on uninitialized value
+    ck_assert_pstr_eq(s21_token, token);
+
+
+#test s21_strtok_test8
+    char string[] =      "Did you see? That explosion was as huge"
+                        " as hell, holy fuck! Amazing!12345678901";  //  length is chosen for valgrind
+    char s21_string[] = "Did you see? That explosion was as huge"
+                        " as hell, holy fuck! Amazing!12345678901";  //  length is chosen for valgrind
+    const char *delimiters = ",! ?";
+
+    const size_t size = strlen(string);
+
+    char *token = strtok(string, delimiters);
+    char *s21_token = s21_strtok(s21_string, delimiters);
+
+    ck_assert_pstr_eq(s21_token, token);
+    while(token) {
+        token = strtok(NULL, delimiters);
+        s21_token = s21_strtok(s21_NULL, delimiters);
+
+        ck_assert_pstr_eq(s21_token, token);
+    }
+
+    ck_assert_mem_eq(s21_string, string, size);
+    ck_assert_pstr_eq(s21_token, token);
+

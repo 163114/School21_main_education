@@ -1,0 +1,104 @@
+#include <string.h>
+#include <stdlib.h>
+#include "s21_string.h"
+
+#test s21_to_trim_test1
+    const char *string = "----URGH DA FUCK!+++++";
+    const char *symbols_to_remove = "+-";
+    const char *expected = "URGH DA FUCK!";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test2
+    const char *string = "--/.. --URGH DA FUCK!+++++/... ";
+    const char *symbols_to_remove = "/+.- ";
+    const char *expected = "URGH DA FUCK!";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test3
+    const char *string = "--/.. --URGH../ DA../+- FUCK!+++++/... ";
+    const char *symbols_to_remove = "/+.- ";
+    const char *expected = "URGH../ DA../+- FUCK!";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test4
+    const char *string = "--/.. &*--URGH../ DA../+- FUCK!+++&*++/... ";
+    const char *symbols_to_remove = "/+.- *&";
+    const char *expected = "URGH../ DA../+- FUCK!";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test5
+    const char *string = "1-2-3/4.5.6 7&8*9-0-URGH../ DA1234567890./+- FUCK!+++&*++/... 123456789";
+    const char *symbols_to_remove = "67890/+.- *&12345";
+    const char *expected = "URGH../ DA1234567890./+- FUCK!";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test6
+    const char *string = "1-2-3/4.5.6 7&8*9-0-URGH../ DA1234567890./+- FUCK!+++&*++/... 123456789";
+    const char *symbols_to_remove = "";
+    const char *expected = "1-2-3/4.5.6 7&8*9-0-URGH../ DA1234567890./+- FUCK!+++&*++/... 123456789";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test7
+    const char *string = "";
+    const char *symbols_to_remove = "+- ";
+    const char *expected = "";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test8
+    const char *string = "";
+    const char *symbols_to_remove = "";
+    const char *expected = "";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test9
+    const char *string = "0000102030405060708090000";
+    const char *symbols_to_remove = "0";
+    const char *expected = "10203040506070809";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+
+#test s21_to_trim_test10
+    const char *string = "000 0102030405060708090 000";
+    const char *symbols_to_remove = "0";
+    const char *expected = " 0102030405060708090 ";
+    
+    char *actual = s21_trim(string, symbols_to_remove);
+    ck_assert_pstr_eq(actual, expected);
+
+    free(actual);
+

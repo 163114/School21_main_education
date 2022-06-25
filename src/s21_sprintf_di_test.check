@@ -1,0 +1,2069 @@
+
+#include <string.h>
+#include <stdio.h>
+#include "s21_string.h"
+
+// Used here to remove the following warning - "warning: implicit declaration of function s21_sprintf"
+int s21_sprintf(char *buffer, const char *format, ...);
+
+#test s21_sprintf_test_di_0
+    const short input_int = 12;
+    const char *format = "%d!%d Hello, Word %d!%d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_1
+    const short int input_int = -12;
+    const char *format = "%d!%d Hello, Word %d!%d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_2
+    const short int input_int = 12345;
+    const char *format = "%d!%d Hello, Word %d!%d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_3
+    const short int input_int = -12345;
+    const char *format = "%d!%d Hello, Word %d!%d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_4
+    const short int input_int = 12;
+    const char *format = "%.0d!%.0d DA FUCK %.0d!%.0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_5
+    const short int input_int = 1234;
+    const char *format = "%.1d!%.2d DA FUCK %.1d!%.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_6
+    const short int input_int = -1234;
+    const char *format = "%.1d!%.2d DA FUCK %.1d!%.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+////////////////////////////////////////////////////////////
+
+
+#test s21_sprintf_test_di_7
+    const short int input_int = 1234;
+    const char *format = "%.5d!%.7d DA FUCK %.9d!%.11d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_8
+    const short int input_int = -1234;
+    const char *format = "%.13d!%.7d DA FUCK %.9d!%.11d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_8_1
+    const short int input_int = -1234;
+    const char *format = "%.5d!%.5d DA FUCK %.5d!%.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_9
+    const short int input_int = 12345;
+    const char *format = "%.5d!%.7d DA FUCK %.9d!%.11d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_10
+    const short int input_int = -12345;
+    const char *format = "%.5d!%.7d DA FUCK %.9d!%.11d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+
+#test s21_sprintf_test_di_width_0
+    const short int input_int = 12;
+    const char *format = "%0d!%0d DA FUCK %0d!%0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_1
+    const short int input_int = -12;
+    const char *format = "%0d!%0d DA FUCK %0d!%0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_2
+    const short int input_int = 12;
+    const char *format = "%1d!%2d DA FUCK %1d!%2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_3
+    const short int input_int = -12;
+    const char *format = "%1d!%2d DA FUCK %1d!%2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_4
+    const short int input_int = 12;
+    const char *format = "%10d!%12d DA FUCK %11d!%13d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_5
+    const short int input_int = -12;
+    const char *format = "%10d!%12d DA FUCK %11d!%13d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+#test s21_sprintf_test_di_precision_width_0
+    const short int input_int = 12;
+    const char *format = "%3.0d!%4.0d DA FUCK %4.0d!%5.0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_precision_width_1
+    const short int input_int = 12;
+    const char *format = "%3.1d!%4.2d DA FUCK %4.1d!%5.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_precision_width_2
+    const short int input_int = -12;
+    const char *format = "%5.3d!%6.4d DA FUCK %6.4d!%7.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+//////////////////////////////////////////////////////////////////////
+
+
+
+#test s21_sprintf_test_di_width_left_justify_0
+    const short int input_int = 12;
+    const char *format = "%-0d!%-0d DA FUCK %-0d!%-0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_left_justify_1
+    const short int input_int = 12;
+    const char *format = "%-1d!%-2d DA FUCK %-1d!%-2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_width_left_justify_2
+    const short int input_int = -12;
+    const char *format = "%-0d!%-0d DA FUCK %-0d!%-0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_left_justify_3
+    const short int input_int = -12;
+    const char *format = "%-1d!%-2d DA FUCK %-1d!%-2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_width_left_justify_4
+    const short int input_int = 12;
+    const char *format = "%-3d!%-4d DA FUCK %-5d!%-6d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_left_justify_5
+    const short int input_int = -12;
+    const char *format = "%-3d!%-4d DA FUCK %-5d!%-2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_width_left_justify_6
+    const short int input_int = 12;
+    const char *format = "%-3.0d!%-4.0d DA FUCK %-5.0d!%-2.0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_left_justify_7
+    const short int input_int = 12;
+    const char *format = "%-4.1d!%-4.2d DA FUCK %-5.1d!%-4.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_left_justify_8
+    const short int input_int = 12;
+    const char *format = "!%-4.2d DA FUCK %-5.1d!%-4.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_width_left_justify_9
+    const short int input_int = -12;
+    const char *format = "%-4.1d!%-4.2d DA FUCK %-5.1d!%-4.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_width_left_justify_10
+    const short int input_int = -12;
+    const char *format = "!%-4.2d DA FUCK %-5.1d!%-4.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+////////////////////////////////////////////////////////
+
+#test s21_sprintf_test_di_plus_0
+    const short int input_int = 12;
+    const char *format = "%+d!%+d DA FUCK %+d!%+d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_plus_1
+    const short int input_int = -12;
+    const char *format = "%+d!%+d DA FUCK %+d!%+d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_plus_2
+    const short int input_int = -12;
+    const char *format = "%+0.0d!%+0.0d DA FUCK %+0.0d!%+0.0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_3
+    const short int input_int = 12;
+    const char *format = "%+0.0d!%+0.0d DA FUCK %+0.0d!%+0.0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_4
+    const short int input_int = 12;
+    const char *format = "%+1.0d!%+2.0d DA FUCK %+1.0d!%+2.0d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_5
+    const short int input_int = 12;
+    const char *format = "%+0.1d!%+0.2d DA FUCK %+0.1d!%+0.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_6
+    const short int input_int = -12;
+    const char *format = "%+0.1d!%+0.2d DA FUCK %+0.1d!%+0.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_plus_7
+    const short int input_int = 12;
+    const char *format = "%+6.1d!%+7.2d DA FUCK %+8.1d!%+9.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_plus_8
+    const short int input_int = -12;
+    const char *format = "%+6.1d!%+7.2d DA FUCK %+8.1d!%+9.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_9
+    const short int input_int = 12;
+    const char *format = "%+8.6d!%+9.7d DA FUCK %+10.8d!%+11.9d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_9_1
+    const short int input_int = -12;
+    const char *format = "%8.6d!%9.7d DA FUCK %10.8d!%11.9d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_10
+    const short int input_int = 12;
+    const char *format = "%+6.8d!%+7.9d DA FUCK %+8.10d!%+9.11d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_11
+    const short int input_int = -12;
+    const char *format = "%+6.8d!%+7.9d DA FUCK %+8.10d!%+9.11d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_plus_12
+    const short int input_int = 7890;
+    const char *format = "%+6.8d!%+7.9d DA FUCK %+8.10d!%+9.11d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_13
+    const short int input_int = -7890;
+    const char *format = "%+6.2d!%+7.2d DA FUCK %+8.1d!%+9.3d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_14
+    const short int input_int = 7890;
+    const char *format = "%+16.3d!%+107.3d DA FUCK %+18.2d!%+19.1d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_15
+    const short int input_int = -1890;
+    const char *format = "%+16.3d!%+17.2d DA FUCK %+18.3d!%+19.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_plus_16
+    const short int input_int = 7890;
+    const char *format = "%+16.2d!%+107.3d DA FUCK %+18.1d!%+19.3d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_17
+    const short int input_int = -7890;
+    const char *format = "%+6.2d!%+7.1d DA FUCK %+8.2d!%+9.1d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_18
+    const short int input_int = 7890;
+    const char *format = "%+16.2d!%+107.1d DA FUCK %+18.1d!%+19.2d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_19
+    const short int input_int = -123;
+    const char *format = "%+16.2d!%+17.3d DA FUCK %+18.1d!%+19.1d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_plus_20
+    const short int input_int = 7890;
+    const char *format = "%+160.80d!%+170.90d DA FUCK %+180.100d!%+190.110d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_plus_21
+    const short int input_int = -12345;
+    const char *format = "%+160.180d!%+170.190d DA FUCK %+180.200d!%+190.210d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_left_justify_0
+    const short int input_int = -12345;
+    const char *format = "%-+160.180d!%-+170.190d DA FUCK %-+180.200d!%-+190.210d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_1
+    const short int input_int = -12345;
+    const char *format = "%+-160.180d!%+-170.190d DA FUCK %+-180.200d!%+-190.210d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_2
+    const short int input_int = -12345;
+    const char *format = "%+-16d!%+-17d DA FUCK %+-18d!%+-19d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_3
+    const short int input_int = 1234;
+    const char *format = "%-+16d!%-+17d DA FUCK %+-18d!%+-19d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+#test s21_sprintf_test_di_left_justify_4
+    const short int input_int = -1234;
+    const char *format = "%-+16d!%-+17d DA FUCK %+-18d!%+-19d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_5
+    const short int input_int = 1234;
+    const char *format = "%-16.10d!%-17.10d DA FUCK %-18.8d!%-19.8d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_6
+    const short int input_int = 1234;
+    const char *format = "%-+16.10d!%-+17.10d DA FUCK %-+18.8d!%-+19.8d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_7
+    const short int input_int = 12;
+    const char *format = "%-6.4d!%-7.5d DA FUCK %-8.4d!%-9.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_8
+    const short int input_int = -12;
+    const char *format = "%-6.4d!%-7.5d DA FUCK %-8.4d!%-9.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_9
+    const short int input_int = 12;
+    const char *format = "%-+6.4d!%-+7.5d DA FUCK %-+8.4d!%-+9.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_10
+    const short int input_int = -12;
+    const char *format = "%-+6.4d!%-+7.5d DA FUCK %-+8.4d!%-+9.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_11
+    const short int input_int = 123;
+    const char *format = "%+-6.4d!%+-7.5d DA FUCK %+-8.4d!%+-9.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+#test s21_sprintf_test_di_left_justify_12
+    const short int input_int = -123;
+    const char *format = "%+-6.4d!%+-7.5d DA FUCK %+-8.4d!%+-9.5d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int,  input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+
+// %i Maximum value of hexadecimal int with sign, width and precision
+#test s21_sprintf_di_specifier_test10
+    const short int input_int = 0x7FFF;
+    const char *format = "+20.30i%+9.5i%+-30.15i%-5.10i Hello, Word %-50.25i%-50.25i%+0.0i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Normal value of hexadecimal int with sign, width and precision
+#test s21_sprintf_di_specifier_test11
+    const short int input_int = 0x7231;
+    const char *format = "+20.30i%+9.5i%+-30.15i%-5.10i Hello, Word %-50.25i%-50.25i%+0.0i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Minimum value of hexadecimal int with sign, width and precision
+#test s21_sprintf_di_specifier_test12
+    const short int input_int = -0x7FFF;
+    const char *format = "+20.30i%+9.5i%+-30.15i%-5.10i Hello, Word %-50.25i%-50.25i%+0.0i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Maximum value of octal int with sign, width and precision
+#test s21_sprintf_di_specifier_test13
+    const short int input_int = 017777;
+    const char *format = "+20.30i%+9.5i%+-30.15i%-5.10i Hello, Word %-50.25i%-50.25i%+0.0i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Normal value of octal int with sign, width and precision
+#test s21_sprintf_di_specifier_test14
+    const short int input_int = 03443;
+    const char *format = "+20.30i%+9.5i%+-30.15i%-5.10i Hello, Word %-50.25i%-50.25i%+0.0i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Minimum value of octal int with sign, width and precision
+#test s21_sprintf_di_specifier_test15
+    const short int input_int = -017777;
+    const char *format = "+20.30i%+9.5i%+-30.15i%-5.10i Hello, Word %-50.25i%-50.25i%+0.0i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Regular value - right-justify flag test
+#test s21_sprintf_di_specifier_test16
+   const short int input_int = 12;
+   const char *format = "%5i%5i Hello, Word %5i%5i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+
+// %i Negative value - right-justify flag test
+#test s21_sprintf_di_specifier_test17
+   const short int input_int = -12;
+   const char *format = "%5i%5i Hello, Word %5i%5i";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Big negative value - right-justify flag test
+#test s21_sprintf_di_specifier_test18
+   const short int input_int = -12349;
+   const char *format = "%i%5i Hello, Word %5i%5i";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Big negative value - right-justify flag test with different width
+#test s21_sprintf_di_specifier_test19
+   const short int input_int = -12349;
+   const char *format = "%15i%5i Hello, Word %51i%5i";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Negative value - left-justify flag test
+#test s21_sprintf_di_specifier_test20
+   const short int input_int = -12;
+   const char *format = "%-5i%-5i Hello, Word %-5i%-5i";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Negative value - left-justify flag test with different width
+#test s21_sprintf_di_specifier_test21
+   const short int input_int = -12;
+   const char *format = "%-5d%-10d%-15d Hello, Word %-5d%-10d%-15d";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Negative value - left-justify flag test with different width and singed flag
+#test s21_sprintf_di_specifier_test22
+   const short int input_int = -12;
+   const char *format = "%-+3i%-+5i Hello, Word %-+7i%-+10i";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Big negative value - left-justify flag test with different width and singed flag
+#test s21_sprintf_di_specifier_test23
+   const short int input_int = -12345;
+   const char *format = "%-+5i%-+5i Hello, Word %-+50i%-+50i";
+
+   char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Big positive value - left-justify flag test with different width and singed flag
+#test s21_sprintf_di_specifier_test24
+   const short int input_int = 12345;
+   const char *format = "%-+5i%-+5i Hello, Word %-+50i%-+50i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Normal value - precision test
+#test s21_sprintf_di_specifier_test25
+   const short int input_int = 12;
+   const char *format = "%.5i!%.5i Hello, Word %.5i!%.5i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Normal value - precision test (two-digit number)
+#test s21_sprintf_di_specifier_test26
+   const short int input_int = 12345;
+   const char *format = "%.15i!%.15i Hello, Word %.15i!%.15i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Normal value - precision test with different precision
+#test s21_sprintf_di_specifier_test27
+   const short int input_int = 12345;
+   const char *format = "%.1i!%.3i Hello, Word %.i!%.15i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Negative value - precision test with same values
+#test s21_sprintf_di_specifier_test28
+   const short int input_int = -12345;
+   const char *format = "%.7i!%.7i Hello, Word %.7i!%.7i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Big negative value - precision test with same values
+#test s21_sprintf_di_specifier_test29
+   const short int input_int = -12345;
+   const char *format = "%.7i!%.7i Hello, Word %.7i!%.7i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Big negative value - precision test with different values
+#test s21_sprintf_di_specifier_test30
+   const short int input_int = -12345;
+   const char *format = "%.7i!%.17i Hello, Word %.27i!%.37i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Regular value - width and precision test
+#test s21_sprintf_di_specifier_test31
+   const short int input_int = 12;
+   const char *format = "%11.2i!%9.2i Hello, Word %7.2i!%5.2i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Negative value - width and precision test
+#test s21_sprintf_di_specifier_test32
+   const short int input_int = -12345;
+   const char *format = "%11.2i!%9.2i Hello, Word %7.2i!%5.2i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Negative value - width and precision test - zero precision
+#test s21_sprintf_di_specifier_test33
+   const short int input_int = -12345;
+   const char *format = "%11.0i!%9.0i Hello, Word %7.0i!%5.0i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Regular value - width and precision test - zero precision
+#test s21_sprintf_di_specifier_test34
+   const short int input_int = 123;
+   const char *format = "%11.0i!%9.0i Hello, Word %7.0i!%5.0i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Regular value - width and precision test - different width and different precision
+#test s21_sprintf_di_specifier_test35
+   const short int input_int = 12;
+   const char *format = "%11.12i!%9.10i Hello, Word %5.10i!%10.5i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Negative value - width and precision test - different width and different precision
+#test s21_sprintf_di_specifier_test36
+   const short int input_int = -12;
+   const char *format = "%11.12i!%9.10i Hello, Word %5.10i!%10.5i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Big regualr value - width and precision test - different width and different precision
+#test s21_sprintf_di_specifier_test37
+   const short int input_int = 12345;
+   const char *format = "%4.5i!%7.8i Hello, Word %5.10i!%10.5i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+
+// %i Sign with regular int test
+#test s21_sprintf_di_specifier_test38
+   const short int input_int = 12345;
+   const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+   char s21_buffer[1000];
+   memset(s21_buffer, 'a', 1000);
+   char buffer[1000];
+   memset(buffer, 'a', 1000);
+
+   const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int);
+   const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int);
+   
+   ck_assert_str_eq(s21_buffer, buffer);
+   ck_assert_int_eq(s21_result, result);
+
+// %i Sing with maximum value of hexadecimal int
+#test s21_sprintf_di_specifier_test39
+    const short int input_int = 0x7FFF;
+    const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Sign with normal value of hexadecimal int
+#test s21_sprintf_di_specifier_test40
+    const short int input_int = 0x7231;
+    const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Sign with minimum value of hexadecimal int
+#test s21_sprintf_di_specifier_test41
+    const short int input_int = -0x7FFF;
+    const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Sign with maximum value of octal int
+#test s21_sprintf_di_specifier_test42
+    const short int input_int = 017777;
+    const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Sign with normal value of octal int
+#test s21_sprintf_di_specifier_test43
+    const short int input_int = 034437;
+    const char *format ="%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+
+// %i Sign with minimum value of octal int
+#test s21_sprintf_di_specifier_test44
+    const short int input_int = -017777;
+    const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Sign with maximum int test
+#test s21_sprintf_di_specifier_test45
+    const short int input_int = 32767;
+    const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Sign with minimum int test
+#test s21_sprintf_di_specifier_test46
+    const short int input_int = -32768;
+    const char *format = "%+i%+i%+i Hello, Word %+i%+i%+i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Maximum value of hexadecimal int - left-justified with no value
+#test s21_sprintf_di_specifier_test47
+    const short int input_int = 0x7FFF;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Normal value of hexadecimal int - left-justified with no value
+#test s21_sprintf_di_specifier_test48
+    const short int input_int = 0x7231;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Minimum value of hexadecimal int - left-justified with no value
+#test s21_sprintf_di_specifier_test49
+    const short int input_int = -0x7FFF;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Maximum value of octal int - left-justified with no value
+#test s21_sprintf_di_specifier_test50
+    const short int input_int = 017777;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Normal value of octal int - left-justified with no value
+#test s21_sprintf_di_specifier_test51
+    const short int input_int = 03443;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Minimum value of octal int - left-justified with no value
+#test s21_sprintf_di_specifier_test52
+    const short int input_int = -017777;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Maximum int test - left-justified with no value
+#test s21_sprintf_di_specifier_test53
+    const short int input_int = 32767;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Minimum int test - left-justified with no value
+#test s21_sprintf_di_specifier_test54
+    const short int input_int = -32768;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Regular int test - left-justified with no value
+#test s21_sprintf_di_specifier_test55
+    const short int input_int = 7487;
+    const char *format = "%-i%-i%-i Hello, Word %-i%-i%-i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Regular int test - signed with different left-justify (min, equal, more than) and precision (min, equal, more than)
+#test s21_sprintf_di_specifier_test56
+    const short int input_int = 7436;
+    const char *format = "%+-3i%-7i%-10i Hello, Word %+-3.3i%-7.7i%-10.10i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+
+// %i Regular int test - signed with different left-justify (min, equal, more than) and precision (min, equal, more than) - one of the values is not set
+#test s21_sprintf_di_specifier_test57
+    const short int input_int = 7483;
+    const char *format = "%+-.3i%-.7i%-.10i Hello, Word %+-3.i%-7.i%-10.i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %d Minimum d test
+#test s21_sprintf_di_specifier_test58
+    const short int input_int = -32768;
+    const char *format = "%+-.3d%-.7d%-.10d Hello, Word %+-3.d%-7.d%-10.d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %d Maximum d test
+#test s21_sprintf_di_specifier_test59
+    const short int input_int = 32767;
+    const char *format = "%+-.3d%-.7d%-.10d Hello, Word %+-3.d%-7.d%-10.d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Minimum i test
+#test s21_sprintf_di_specifier_test60
+    const short int input_int = -32768;
+    const char *format = "%+-.3i%-.7i%-.10i Hello, Word %+-3.i%-7.i%-10.i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Maximum d test
+#test s21_sprintf_di_specifier_test61
+    const short int input_int = 32767;
+    const char *format = "%+-.3i%-.7i%-.10d Hello, Word %+-3.i%-7.i%-10.i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Zero i test - left
+#test s21_sprintf_di_specifier_test62
+    const int input_int = 0;
+    const char *format = "%+-.3i%-.7i%-.10i Hello, Word %+-3.i%-7.i%-10.i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %d Zero d test - left
+#test s21_sprintf_di_specifier_test63
+    const int input_int = 0;
+    const char *format = "%+-.3d%-.7d%-.10d Hello, Word %+-3.d%-7.d%-10.d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %d Zero test - right
+#test s21_sprintf_di_specifier_test64
+    const int input_int = 0;
+    const char *format = "%+.3i%.7i%.10i Hello, Word %+3.i%7.i%10.i";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
+
+// %i Zero d test - right
+#test s21_sprintf_di_specifier_test65
+    const int input_int = 0;
+    const char *format = "%+-.3d%-.7d%-.10d Hello, Word %+-3.d%7.d%10.d";
+
+    char s21_buffer[1000];
+    memset(s21_buffer, 'a', 1000);
+    char buffer[1000];
+    memset(buffer, 'a', 1000);
+
+    const int s21_result = s21_sprintf(s21_buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    const int result = sprintf(buffer, format, input_int, input_int, input_int, input_int, input_int, input_int);
+    
+    ck_assert_str_eq(s21_buffer, buffer);
+    ck_assert_int_eq(s21_result, result);
