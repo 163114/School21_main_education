@@ -3,16 +3,14 @@
 #include "s21_trim.h"
 #include "s21_strlen.h"
 
-static int searc(char c, const char *trim_chars)
-{
+static int searc(char c, const char *trim_chars) {
     int lentr = s21_strlen(trim_chars);
     for (int i = 0; i < lentr; i++)
         if (c == trim_chars[i]) return 1;
     return 0;
 }
 
-void *s21_trim(const char *src, const char *trim_chars)
-{
+void *s21_trim(const char *src, const char *trim_chars) {
     int len = s21_strlen(src), begin = 0, end = len - 1;
 
     for (; begin < len; begin++)
@@ -21,8 +19,7 @@ void *s21_trim(const char *src, const char *trim_chars)
         if (!searc(src[end], trim_chars)) break;
     const int lenst = len - begin - (len - end) + 2;
     char *str_ = (char *)malloc((lenst+1) * sizeof(char));
-    if (str_)
-    {
+    if (str_) {
         for (int i = 0; i < lenst - 1 && begin <= end; i++, begin++)
             str_[i] = src[begin];
     }

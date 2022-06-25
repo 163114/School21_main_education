@@ -21,7 +21,8 @@ ALL_TESTS_IN_ONE_FILE=s21_string_test.check
 # ALL_TESTS_IN_ONE_FILE_GENERATED=$(BUILD_DIRECTORY)/s21_string_test.c
 # ALL_TESTS_IN_ONE_FILE_GENERATED=s21_string_test.c
 #SOURCE_FILES_TESTS=$(foreach directory_as_variable, $(SOURCE_DIRECTORIES),$(wildcard $(directory_as_variable)/*.check))
-TEST_FILES=$(foreach directory_as_variable, $(SOURCE_DIRECTORIES),$(wildcard $(directory_as_variable)/*.check))
+# TEST_FILES=$(foreach directory_as_variable, $(SOURCE_DIRECTORIES),$(wildcard $(directory_as_variable)/*.check))
+TEST_FILES=$(wildcard ./*.check)
 
 STATIC_LIBRARY=s21_string.a
 
